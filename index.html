@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDAAN-X - Empowerment, Recovery & Wellness Platform</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Lora:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5ebe0;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #f9f5f0;
+            color: #5d4e37;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(93, 78, 55, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #8b7355;
+        }
+
+        .logo-main {
+            font-size: 1.8rem;
+            line-height: 1;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #5d4e37;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            font-weight: normal;
+            color: #8b7355;
+            font-family: 'Lora', serif;
+            margin-left: 0.3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #5d4e37;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .login-btn, .signup-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-family: 'Lora', serif;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: #5d4e37;
+            border: 2px solid #8b7355;
+        }
+
+        .login-btn:hover {
+            background: #8b7355;
+            color: white;
+        }
+
+        .signup-btn {
+            background: #8b7355;
+            color: white;
+            border: 2px solid #8b7355;
+        }
+
+        .signup-btn:hover {
+            background: #6d5a44;
+            border-color: #6d5a44;
+        }
+
+        .hero {
+            margin-top: 70px;
+            padding: 4rem 2rem;
+            background: #e8dcc7;
+            color: #5d4e37;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            color: #5d4e37;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+            line-height: 1.6;
+            color: #6d5a44;
+            font-family: 'Lora', serif;
+        }
+
+        .cta-button {
+            background: #8b7355;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(93, 78, 55, 0.3);
+            background: #6d5a44;
+        }
+
+        .modules {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .modules h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #2c2c2c;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .module-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .module-card {
+            background: #f5f3f0;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #d4cec7;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .module-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .module-card h3 {
+            color: #2c2c2c;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .module-card p {
+            color: #666;
+            line-height: 1.8;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+        }
+
+        .stress-section {
+            padding: 4rem 2rem;
+            background: #f5f3f0;
+        }
+
+        .stress-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #d4cec7;
+            padding: 3rem;
+            border-radius: 20px;
+            color: #2c2c2c;
+        }
+
+        .stress-container h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+            color: #2c2c2c;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .question-box {
+            background: rgba(255,255,255,0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .question-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #2c2c2c;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option-btn {
+            background: white;
+            color: #5d4e37;
+            padding: 1rem;
+            border: 1px solid #e8dcc7;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: left;
+            font-family: 'Lora', serif;
+        }
+
+        .option-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(93, 78, 55, 0.15);
+            background: #f9f5f0;
+        }
+
+        .coming-soon-section {
+            padding: 4rem 2rem;
+            background: #d4cec7;
+        }
+
+        .coming-soon-box {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(255,255,255,0.5);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            border: 2px dashed #2c2c2c;
+        }
+
+        .coming-soon-box h3 {
+            font-size: 3rem;
+            color: #2c2c2c;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .coming-soon-box p {
+            font-size: 1.2rem;
+            color: #4a4a4a;
+            font-family: 'Lora', serif;
+        }
+
+        footer {
+            background: #5d4e37;
+            color: white;
+            padding: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #8b7355;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .modal-content h2 {
+            color: #5d4e37;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c2c2c;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #d4cec7;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Lora', serif;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #8b7355;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #6d5a44;
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #666;
+            user-select: none;
+        }
+
+        .menu-grid {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .menu-btn {
+            background: #f5f3f0;
+            padding: 1.5rem;
+            border: 1px solid #d4cec7;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-align: left;
+            transition: all 0.3s;
+            color: #2c2c2c;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .page-container {
+            min-height: calc(100vh - 70px);
+            padding-top: 70px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #5d4e37;
+            font-family: 'Playfair Display', serif;
+            margin: 2rem 0;
+            font-weight: 600;
+        }
+
+        .post-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .action-btn {
+            background: #8b7355;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .action-btn:hover {
+            background: #6d5a44;
+        }
+
+        .back-btn {
+            max-width: 200px;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .modules h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo" onclick="showHome()">
+                <img src="https://i.ibb.co/xKrTZzV7/logo.png" alt="UDAAN-X Logo">
+                <div>
+                    <span class="logo-main">UDAAN-X</span>
+                    <span class="logo-sub">Empowerment Platform</span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="showHome()">Home</a></li>
+                <li><a onclick="scrollToModules()">Services</a></li>
+                <li><a onclick="scrollToStress()">Stress Help</a></li>
+                <li><a onclick="scrollToDownload()">Download</a></li>
+                <li><a onclick="scrollToContact()">Contact</a></li>
+            </ul>
+            <div class="auth-buttons" id="authButtons">
+                <button class="login-btn" onclick="openAuthModal('login')">Login</button>
+                <button class="signup-btn" onclick="openAuthModal('signup')">Sign Up</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page-container">
+        <section class="hero">
+            <h1>UDAAN-X</h1>
+            <p>Empowerment, Recovery & Wellness Platform</p>
+            <p>Supporting women, rural communities, and individuals on their journey to mental wellness and recovery</p>
+            <button class="cta-button" onclick="scrollToModules()">Explore Our Modules</button>
+        </section>
+
+        <section class="modules" id="modulesSection">
+            <h2>Our Support Modules</h2>
+            <div class="module-grid">
+                <div class="module-card" onclick="openModule('voiceher')">
+                    <div class="module-icon">✍️</div>
+                    <h3>Kahani Se Karwai</h3>
+                    <p>A platform to share real stories, raise awareness, and inspire action for social change.</p>
+                </div>
+
+                <div class="module-card" onclick="openModule('saheli')">
+                    <div class="module-icon">💬</div>
+                    <h3>Baat Space</h3>
+                    <p>Community support and connection network</p>
+                </div>
+
+                <div class="module-card" onclick="openModule('grameen')">
+                    <div class="module-icon">🌾</div>
+                    <h3>Grameen Saathi</h3>
+                    <p>Rural outreach and awareness programs</p>
+                </div>
+
+                <div class="module-card" onclick="openModule('addiction')">
+                    <div class="module-icon">🚭</div>
+                    <h3>Nasha Mukti</h3>
+                    <p>Recovery and mental wellness support</p>
+                </div>
+
+                <div class="module-card" onclick="openModule('stress')">
+                    <div class="module-icon">🧘</div>
+                    <h3>Stress Management</h3>
+                    <p>Personalized stress relief and coping strategies</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stress-section hidden" id="stressSection">
+            <div class="stress-container">
+                <h2>Stress Management System</h2>
+                <div class="question-box">
+                    <h3>How are you feeling right now?</h3>
+                    <div class="options">
+                        <button class="option-btn" onclick="showSuggestion('low')">
+                            I feel very low and tired
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('hopeless')">
+                            I feel hopeless about the future
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('stressed')">
+                            I feel stressed and cannot focus
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('isolated')">
+                            I feel like I don't want to talk to anyone
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('anxious')">
+                            I feel constantly anxious or worried
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('overwhelmed')">
+                            I feel overwhelmed by daily tasks
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('angry')">
+                            I feel irritable or angry easily
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('sleeping')">
+                            I'm having trouble sleeping
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('eating')">
+                            My eating patterns have changed significantly
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('worthless')">
+                            I feel like I'm not good enough
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('physical')">
+                            I'm experiencing physical symptoms (headaches, chest pain, etc.)
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('memories')">
+                            I'm bothered by intrusive thoughts or memories
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('motivation')">
+                            I have no motivation to do anything
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('relationships')">
+                            I'm having conflicts in my relationships
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="coming-soon-section" id="downloadSection">
+            <div class="coming-soon-box">
+                <h3>COMING SOON</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">Our mobile app is under development</p>
+                <p>Get ready to access UDAAN-X support anytime, anywhere</p>
+                <div style="margin-top: 2rem; font-size: 3rem;">
+                    📱 🍎
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- VOICE HER MODULE -->
+    <div id="voiceherPage" class="page-container hidden">
+        <h2 class="page-title">KAHANI SE KARWAI✍️</h2>
+        <div class="menu-grid">
+            <button class="menu-btn" onclick="openSubModule('report')">📝 Submit Anonymous Report</button>
+            <button class="menu-btn" onclick="openSubModule('story')">📖 Share Your Story</button>
+            <button class="menu-btn" onclick="openSubModule('submissions')">📋 My Submissions</button>
+            <button class="menu-btn" onclick="openSubModule('help')">🏥 Help Centers</button>
+            <button class="menu-btn" onclick="openSubModule('case')">🔍 Track Case</button>
+        </div>
+        <button class="submit-btn back-btn" onclick="showHome()">Back to Home</button>
+    </div>
+
+    <!-- SAHELI CONNECT MODULE -->
+    <div id="saheliPage" class="page-container hidden">
+        <h2 class="page-title">BAAT SPACE💬</h2>
+        <div style="max-width: 800px; margin: 2rem auto; padding: 0 2rem;">
+            <div class="modal-content" style="margin-bottom: 2rem;">
+                <h3>Create New Post</h3>
+                <div id="forumMsg"></div>
+                <div class="form-group">
+                    <input type="text" id="forumTitle" placeholder="Post Title">
+                </div>
+                <div class="form-group">
+                    <textarea id="forumContent" rows="4" placeholder="Share your thoughts..."></textarea>
+                </div>
+                <button class="submit-btn" onclick="submitForumPost()">Create Post</button>
+            </div>
+            <div id="forumPosts"></div>
+        </div>
+        <button class="submit-btn back-btn" onclick="showHome()">Back to Home</button>
+    </div>
+
+    <!-- GRAMEEN SAATHI MODULE -->
+    <div id="grameenPage" class="page-container hidden">
+        <h2 class="page-title">GRAMEEN SAATHI🌾</h2>
+        <div class="menu-grid">
+            <button class="menu-btn" onclick="alert('Government Schemes feature coming soon!')">🏛️ Government Schemes</button>
+            <button class="menu-btn" onclick="alert('Health Tips feature coming soon!')">🏥 Health Tips</button>
+            <button class="menu-btn" onclick="alert('Educational Resources feature coming soon!')">📚 Educational Resources</button>
+            <button class="menu-btn" onclick="alert('Digital Literacy feature coming soon!')">💻 Digital Literacy</button>
+            <button class="menu-btn" onclick="alert('Training Opportunities feature coming soon!')">🎓 Training Opportunities</button>
+        </div>
+        <button class="submit-btn back-btn" onclick="showHome()">Back to Home</button>
+    </div>
+
+    <!-- ADDICTION HELP MODULE -->
+    <div id="addictionPage" class="page-container hidden">
+        <h2 class="page-title">NASHA MUKTI🚭</h2>
+        <div class="menu-grid">
+            <button class="menu-btn" onclick="alert('Self-Assessment Tools coming soon!')">📊 Self-Assessment Tools</button>
+            <button class="menu-btn" onclick="alert('Coping Exercises coming soon!')">🧘 Therapy & Coping Exercises</button>
+            <button class="menu-btn" onclick="alert('Rehabilitation Support coming soon!')">🏥 Rehabilitation Support</button>
+            <button class="menu-btn" onclick="alert('Progress Tracker coming soon!')">📈 Progress Tracker</button>
+            <button class="menu-btn" onclick="alert('Support Groups coming soon!')">👥 Peer Support Groups</button>
+        </div>
+        <button class="submit-btn back-btn" onclick="showHome()">Back to Home</button>
+    </div>
+
+    <!-- STRESS MANAGEMENT MODULE -->
+    <div id="stressPage" class="page-container hidden">
+        <h2 class="page-title">Stress Management System</h2>
+        <div style="max-width: 800px; margin: 2rem auto; padding: 0 2rem;">
+            <div class="stress-container">
+                <div class="question-box">
+                    <h3>How are you feeling right now?</h3>
+                    <div class="options">
+                        <button class="option-btn" onclick="showSuggestion('low')">
+                            I feel very low and tired
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('hopeless')">
+                            I feel hopeless about the future
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('stressed')">
+                            I feel stressed and cannot focus
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('isolated')">
+                            I feel like I don't want to talk to anyone
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('anxious')">
+                            I feel constantly anxious or worried
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('overwhelmed')">
+                            I feel overwhelmed by daily tasks
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('angry')">
+                            I feel irritable or angry easily
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('sleeping')">
+                            I'm having trouble sleeping
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('eating')">
+                            My eating patterns have changed significantly
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('worthless')">
+                            I feel like I'm not good enough
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('physical')">
+                            I'm experiencing physical symptoms (headaches, chest pain, etc.)
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('memories')">
+                            I'm bothered by intrusive thoughts or memories
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('motivation')">
+                            I have no motivation to do anything
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('relationships')">
+                            I'm having conflicts in my relationships
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="submit-btn back-btn" onclick="showHome()">Back to Home</button>
+    </div>
+
+    <!-- AUTH MODAL -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('authModal')">&times;</button>
+            <div id="loginForm" class="hidden">
+                <h2>Welcome Back</h2>
+                <div id="loginMsg"></div>
+                <div class="form-group">
+                    <label>Email or Username</label>
+                    <input type="text" id="loginEmail">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword">
+                        <span class="password-toggle" onclick="togglePassword('loginPassword', this)">👁️</span>
+                    </div>
+                </div>
+                <button class="submit-btn" onclick="handleLogin()">Login</button>
+                <p style="text-align: center; margin-top: 1.5rem;">Don't have an account? <a href="#" onclick="switchAuthForm('signup')">Sign Up</a></p>
+            </div>
+            <div id="signupForm" class="hidden">
+                <h2>Create Account</h2>
+                <div id="signupMsg"></div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName">
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="signupAge">
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="signupGender">
+                        <option value="">Select</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signupEmail">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="signupPassword">
+                        <span class="password-toggle" onclick="togglePassword('signupPassword', this)">👁️</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="signupPhone">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" id="signupAddress">
+                </div>
+                <div class="form-group">
+                    <label>Aadhaar Number</label>
+                    <input type="text" id="signupAadhaar">
+                </div>
+                <button class="submit-btn" onclick="handleSignup()">Sign Up</button>
+                <p style="text-align: center; margin-top: 1.5rem;">Already have an account? <a href="#" onclick="switchAuthForm('login')">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUB MODULE MODAL -->
+    <div id="subModuleModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('subModuleModal')">&times;</button>
+            <div id="subModuleContent"></div>
+        </div>
+    </div>
+
+    <!-- SUGGESTION MODAL -->
+    <div id="suggestionModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('suggestionModal')">&times;</button>
+            <h2>💡 Personalized Suggestion</h2>
+            <p id="suggestionContent" style="line-height: 1.8; color: #666;"></p>
+        </div>
+    </div>
+
+    <footer id="contactSection">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>UDAAN-X</h3>
+                <p>Empowerment, Recovery & Wellness Platform</p>
+                <p>Your journey to wellness starts here</p>
+            </div>
+            <div class="footer-section" style="text-align: right;">
+                <h3>Contact Us</h3>
+                <p>📧 : udaaanx@gmail.com</p>
+                <p>👦🏻      ~ ANAND VERMA</p>
+                <p>&nbsp;&nbsp;&nbsp;~ MANDEEP MISHRA</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">&copy; 2025 UDAAN-X - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('udaanUser');
+            if (saved) {
+                currentUser = JSON.parse(saved);
+                updateAuthUI();
+            }
+        });
+
+        function showHome() {
+            document.querySelectorAll('.page-container').forEach(el => el.classList.add('hidden'));
+            document.getElementById('homePage').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function scrollToModules() {
+            document.getElementById('modulesSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToStress() {
+            document.getElementById('stressSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToDownload() {
+            document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToContact() {
+            document.getElementById('contactSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openModule(module) {
+            document.querySelectorAll('.page-container').forEach(el => el.classList.add('hidden'));
+            document.getElementById(module + 'Page').classList.remove('hidden');
+            window.scrollTo(0, 0);
+            
+            if (module === 'saheli') {
+                loadForumPosts();
+            }
+        }
+
+        function openSubModule(subModule) {
+            const modal = document.getElementById('subModuleModal');
+            const content = document.getElementById('subModuleContent');
+            
+            let html = '';
+            
+            if (subModule === 'report') {
+                html = `
+                    <h2>Submit Anonymous Report</h2>
+                    <div id="reportMsg"></div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="reportCategory">
+                            <option value="">Select Category</option>
+                            <option value="Harassment">Harassment</option>
+                            <option value="Abuse">Abuse</option>
+                            <option value="Violence">Violence</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="reportDescription" rows="6" placeholder="Describe your situation..."></textarea>
+                    </div>
+                    <button class="submit-btn" onclick="submitReport()">Submit Report</button>
+                `;
+            } else if (subModule === 'story') {
+                html = `
+                    <h2>Share Your Story</h2>
+                    <div id="storyMsg"></div>
+                    <div class="form-group">
+                        <label>Your Story</label>
+                        <textarea id="storyContent" rows="8" placeholder="Share your experience..."></textarea>
+                    </div>
+                    <button class="submit-btn" onclick="submitStory()">Submit Story</button>
+                `;
+            } else if (subModule === 'submissions') {
+                loadMySubmissions();
+                return;
+            } else if (subModule === 'case') {
+                html = `
+                    <h2>Track Your Case</h2>
+                    <div class="form-group">
+                        <label>Case ID</label>
+                        <input type="text" id="caseIdInput" placeholder="Enter Case ID (e.g., CASE000001)">
+                    </div>
+                    <button class="submit-btn" onclick="trackCase()">Track Case</button>
+                    <div id="caseResult"></div>
+                `;
+            } else if (subModule === 'help') {
+                html = `
+                    <h2>Help Centers</h2>
+                    <p>This feature will help you find nearby support centers, NGOs, and legal help.</p>
+                    <p style="color: #666; margin-top: 1rem;">Coming soon...</p>
+                `;
+            }
+            
+            content.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+
+        function openAuthModal(type) {
+            const modal = document.getElementById('authModal');
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            if (type === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function switchAuthForm(type) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            if (type === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                icon.textContent = '👁️';
+            }
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            if (currentUser) {
+                authButtons.innerHTML = `
+                    <span style="color: #5d4e37; margin-right: 1rem;">Welcome, ${currentUser.name}</span>
+                    <button class="login-btn" onclick="logout()">Logout</button>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <button class="login-btn" onclick="openAuthModal('login')">Login</button>
+                    <button class="signup-btn" onclick="openAuthModal('signup')">Sign Up</button>
+                `;
+            }
+        }
+
+        function showMsg(id, msg, isError = false) {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = `<div class="message ${isError ? 'error' : 'success'}">${msg}</div>`;
+        }
+
+        async function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showMsg('loginMsg', 'Please fill all fields', true);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    currentUser = data.user;
+                    localStorage.setItem('udaanUser', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    closeModal('authModal');
+                    showMsg('loginMsg', 'Login successful!');
+                } else {
+                    showMsg('loginMsg', data.error, true);
+                }
+            } catch (error) {
+                showMsg('loginMsg', 'Cannot connect to server. Make sure backend is running on port 3000.', true);
+            }
+        }
+
+        async function handleSignup() {
+            const data = {
+                name: document.getElementById('signupName').value,
+                age: document.getElementById('signupAge').value,
+                gender: document.getElementById('signupGender').value,
+                email: document.getElementById('signupEmail').value,
+                password: document.getElementById('signupPassword').value,
+                phone: document.getElementById('signupPhone').value,
+                address: document.getElementById('signupAddress').value,
+                aadhaar: document.getElementById('signupAadhaar').value
+            };
+            
+            if (!data.name || !data.age || !data.gender || !data.email || !data.password || !data.phone || !data.address || !data.aadhaar) {
+                showMsg('signupMsg', 'Please fill all fields', true);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showMsg('signupMsg', 'Signup successful! Please login.');
+                    setTimeout(() => switchAuthForm('login'), 2000);
+                } else {
+                    showMsg('signupMsg', result.error, true);
+                }
+            } catch (error) {
+                showMsg('signupMsg', 'Cannot connect to server', true);
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('udaanUser');
+            updateAuthUI();
+            showHome();
+        }
+
+        async function submitReport() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+            
+            const category = document.getElementById('reportCategory').value;
+            const description = document.getElementById('reportDescription').value;
+            
+            if (!category || !description) {
+                showMsg('reportMsg', 'Please fill all fields', true);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/reports`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ category, description, email: currentUser.email })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMsg('reportMsg', `Report submitted! Your Case ID is: ${data.caseId}`);
+                    document.getElementById('reportCategory').value = '';
+                    document.getElementById('reportDescription').value = '';
+                } else {
+                    showMsg('reportMsg', data.error, true);
+                }
+            } catch (error) {
+                showMsg('reportMsg', 'Cannot connect to server', true);
+            }
+        }
+
+        async function submitStory() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+            
+            const story = document.getElementById('storyContent').value;
+            
+            if (!story) {
+                showMsg('storyMsg', 'Please write your story', true);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/stories`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ story, email: currentUser.email })
+                });
+                
+                if (response.ok) {
+                    showMsg('storyMsg', 'Story submitted successfully!');
+                    document.getElementById('storyContent').value = '';
+                } else {
+                    showMsg('storyMsg', 'Error submitting story', true);
+                }
+            } catch (error) {
+                showMsg('storyMsg', 'Cannot connect to server', true);
+            }
+        }
+
+        async function trackCase() {
+            const caseId = document.getElementById('caseIdInput').value;
+            
+            if (!caseId) {
+                document.getElementById('caseResult').innerHTML = '<p style="color: red; margin-top: 1rem;">Please enter a Case ID</p>';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/case/${caseId}`);
+                
+                if (response.ok) {
+                    const caseData = await response.json();
+                    document.getElementById('caseResult').innerHTML = `
+                        <div class="post-card" style="margin-top: 1.5rem;">
+                            <h3>Case ID: ${caseId}</h3>
+                            <p><strong>Status:</strong> ${caseData.status}</p>
+                            <p><strong>Category:</strong> ${caseData.category}</p>
+                            <p><strong>Description:</strong> ${caseData.description}</p>
+                            <p><strong>Submitted:</strong> ${new Date(caseData.timestamp).toLocaleString()}</p>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('caseResult').innerHTML = '<p style="color: red; margin-top: 1rem;">Case not found</p>';
+                }
+            } catch (error) {
+                document.getElementById('caseResult').innerHTML = '<p style="color: red; margin-top: 1rem;">Error tracking case</p>';
+            }
+        }
+
+        async function loadMySubmissions() {
+            if (!currentUser) return;
+            
+            try {
+                const reportsRes = await fetch(`${API_URL}/reports/${currentUser.email}`);
+                const reports = await reportsRes.json();
+                
+                const storiesRes = await fetch(`${API_URL}/stories/${currentUser.email}`);
+                const stories = await storiesRes.json();
+                
+                const content = document.getElementById('subModuleContent');
+                content.innerHTML = `
+                    <h2>My Submissions</h2>
+                    <h3 style="margin-top: 2rem;">My Reports</h3>
+                    ${reports.length > 0 ? reports.map(r => `
+                        <div class="post-card">
+                            <h4>Case ID: ${r.case_id}</h4>
+                            <p><strong>Category:</strong> ${r.category}</p>
+                            <p><strong>Status:</strong> ${r.status}</p>
+                            <p>${r.description}</p>
+                            <small>${new Date(r.timestamp).toLocaleString()}</small>
+                        </div>
+                    `).join('') : '<p>No reports submitted yet</p>'}
+                    
+                    <h3 style="margin-top: 2rem;">My Stories</h3>
+                    ${stories.length > 0 ? stories.map(s => `
+                        <div class="post-card">
+                            <p>${s.story}</p>
+                            <small>${new Date(s.timestamp).toLocaleString()}</small>
+                        </div>
+                    `).join('') : '<p>No stories uploaded yet</p>'}
+                `;
+                
+                document.getElementById('subModuleModal').style.display = 'flex';
+            } catch (error) {
+                alert('Error loading submissions');
+            }
+        }
+
+        async function loadForumPosts() {
+            try {
+                const response = await fetch(`${API_URL}/forum/posts`);
+                const posts = await response.json();
+                
+                const container = document.getElementById('forumPosts');
+                container.innerHTML = posts.map(post => `
+                    <div class="post-card">
+                        <div class="post-header">
+                            <div>
+                                <h3>${post.title}</h3>
+                                <small>${post.user_email} - ${new Date(post.timestamp).toLocaleDateString()}</small>
+                            </div>
+                            <div style="font-size: 1.2rem;">❤️ ${post.like_count || 0}</div>
+                        </div>
+                        <p>${post.content}</p>
+                        <button class="action-btn" onclick="likePost(${post.id})">Like</button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                document.getElementById('forumPosts').innerHTML = '<p style="padding: 2rem; text-align: center; color: #666;">Unable to load posts. Make sure the backend server is running.</p>';
+            }
+        }
+
+        async function submitForumPost() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+            
+            const title = document.getElementById('forumTitle').value;
+            const content = document.getElementById('forumContent').value;
+            
+            if (!title || !content) {
+                showMsg('forumMsg', 'Please fill all fields', true);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/forum/posts`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content, user_email: currentUser.email })
+                });
+                
+                if (response.ok) {
+                    showMsg('forumMsg', 'Post created successfully!');
+                    document.getElementById('forumTitle').value = '';
+                    document.getElementById('forumContent').value = '';
+                    loadForumPosts();
+                } else {
+                    showMsg('forumMsg', 'Error creating post', true);
+                }
+            } catch (error) {
+                showMsg('forumMsg', 'Cannot connect to server', true);
+            }
+        }
+
+        async function likePost(postId) {
+            if (!currentUser) return;
+            
+            try {
+                await fetch(`${API_URL}/forum/like`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ post_id: postId, user_email: currentUser.email })
+                });
+                loadForumPosts();
+            } catch (error) {
+                console.error('Error liking post:', error);
+            }
+        }
+
+        function showSuggestion(type) {
+            const suggestions = {
+                low: "Try deep breathing exercises: Breathe in for 4 counts, hold for 4, breathe out for 4. Take a short 10-minute walk outdoors if possible. Movement helps release endorphins. Remember: This feeling is temporary. Consider reaching out to a friend or family member.",
+                
+                hopeless: "Write down one small, achievable goal for today - even something as simple as making your bed or drinking water. Achieving small goals builds momentum. You are stronger than you think. Consider journaling three things you're grateful for. If these feelings persist, please speak with a mental health professional.",
+                
+                stressed: "Practice a 5-minute guided meditation. Close your eyes and focus only on your breathing. Let go of thoughts about past or future - be present in this moment. Try progressive muscle relaxation: tense and release each muscle group. Break large tasks into smaller, manageable steps.",
+                
+                isolated: "Isolation can worsen stress and depression. Try texting just one trusted person - you don't have to explain everything, just say 'hi'. Sometimes connection starts with a small step. Your feelings are valid, and you deserve support. Consider joining an online support community.",
+                
+                anxious: "Practice the 5-4-3-2-1 grounding technique: Name 5 things you see, 4 things you can touch, 3 things you hear, 2 things you smell, and 1 thing you taste. This helps anchor you to the present moment. Deep breathing helps: Breathe in slowly for 4 counts, hold for 4, exhale for 6. Challenge anxious thoughts by asking yourself: 'Is this thought based on facts or feelings?' Remember, anxiety is uncomfortable but not dangerous.",
+                
+                overwhelmed: "When everything feels too much, try the 'brain dump' method: Write down everything on your mind without organizing it. Then, prioritize only the top 3 tasks for today. Everything else can wait. Break each task into tiny steps. Remember: You don't have to do everything at once. It's okay to ask for help or say no to additional commitments.",
+                
+                angry: "Anger is often a secondary emotion masking hurt, fear, or frustration. Try the 'STOP' technique: Stop what you're doing. Take a breath. Observe what you're feeling. Proceed mindfully. Physical exercise can help release anger safely - try a brisk walk, dancing, or hitting a pillow. Express your feelings through journaling. Count to 10 before responding. Remember: It's okay to feel angry, but how you express it matters.",
+                
+                sleeping: "Establish a calming bedtime routine: No screens 1 hour before bed. Try reading, gentle stretching, or listening to calming music. Keep your bedroom cool and dark. Avoid caffeine after 2 PM. If your mind races, keep a notepad by your bed to write down thoughts. Try the '4-7-8' breathing: Breathe in for 4, hold for 7, exhale for 8. If sleep problems persist for more than 2 weeks, consult a doctor.",
+                
+                eating: "Changes in eating patterns can signal emotional distress. Try to maintain regular meal times even if you don't feel hungry. Eat with awareness - notice colors, textures, and flavors. Avoid using food as a coping mechanism for emotions. Stay hydrated. If you're eating too little, try small, nutrient-dense snacks. If you're overeating, pause before eating and ask: 'Am I physically hungry or emotionally hungry?' Consider speaking with a counselor if eating patterns feel out of control.",
+                
+                worthless: "These feelings are symptoms, not facts. Write down 3 things you did well today, no matter how small. Remember: Your worth is not determined by productivity or achievements. You matter simply because you exist. Challenge negative self-talk: Would you say this to a friend? Probably not. Be as kind to yourself as you would be to someone you care about. Reach out to someone who makes you feel valued. If feelings of worthlessness persist, please seek professional help.",
+                
+                physical: "Physical symptoms like headaches, chest pain, stomach issues, or muscle tension can be your body's way of expressing emotional stress. Try progressive muscle relaxation: Tense each muscle group for 5 seconds, then release. Stay hydrated and maintain regular meals. Gentle exercise can help. However, if you're experiencing chest pain, difficulty breathing, or severe symptoms, seek immediate medical attention. Don't ignore your body's signals - they're real, even if stress is the cause.",
+                
+                memories: "Intrusive thoughts or flashbacks can be distressing. The '5 senses grounding' technique can help: Focus intensely on what you see, hear, touch, smell, and taste right now. This brings you back to the present. Remember: Thoughts are not facts or predictions. You can observe a thought without engaging with it. Imagine putting the thought on a cloud and watching it float away. If intrusive thoughts are related to trauma, please consider speaking with a trauma-informed therapist. You don't have to carry this burden alone.",
+                
+                motivation: "Lack of motivation is a common sign of burnout or depression. Start with the smallest possible step - just 5 minutes of an activity. Often, starting is the hardest part. Don't wait to 'feel like it' - action often comes before motivation. Celebrate tiny wins. Remove barriers: Lay out your workout clothes, prep ingredients for a meal, put your book on your pillow. Be gentle with yourself - rest is productive too. If this persists for weeks, consider speaking with a mental health professional.",
+                
+                relationships: "Relationship conflicts are stressful but also opportunities for growth. Try the 'I feel... when... because...' formula to express feelings without blame. Listen to understand, not to respond. Take breaks if discussions get heated. Remember: Both people's feelings are valid. Consider what you need versus what you want. Are your boundaries clear? Sometimes conflicts arise from unspoken expectations. If patterns repeat, couples or family therapy can help. It's a sign of strength, not weakness."
+            };
+            
+            const content = suggestions[type] || "Please consider speaking with a mental health professional who can provide personalized support for your situation.";
+            document.getElementById('suggestionContent').innerHTML = content;
+            document.getElementById('suggestionModal').style.display = 'flex';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
