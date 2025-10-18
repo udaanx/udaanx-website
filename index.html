@@ -95,6 +95,97 @@
             align-items: center;
         }
 
+        .language-selector {
+            position: relative;
+            margin-right: 1rem;
+        }
+
+        .language-btn {
+            background: transparent;
+            color: #5d4e37;
+            border: 2px solid #8b7355;
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Lora', serif;
+            font-weight: 500;
+        }
+
+        .language-btn:hover {
+            background: #8b7355;
+            color: white;
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #d4cec7;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 0.5rem;
+            min-width: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1001;
+        }
+
+        .language-dropdown.show {
+            display: block;
+        }
+
+        .language-option {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: #2c2c2c;
+            font-family: 'Lora', serif;
+        }
+
+        .language-option:hover {
+            background: #f5f3f0;
+        }
+
+        .language-option.active {
+            background: #e8dcc7;
+            font-weight: 600;
+        }
+
+        .goog-te-banner-frame,
+        .goog-te-balloon-frame,
+        .goog-logo-link,
+        .goog-te-gadget {
+            display: none !important;
+        }
+
+        body {
+            top: 0 !important;
+        }
+
+        #google_translate_element {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+    opacity: 0.3;
+}
+
+#google_translate_element:hover {
+    opacity: 1;
+}
+
+.skiptranslate {
+    display: none;
+}
+
         .login-btn, .signup-btn {
             padding: 0.6rem 1.5rem;
             border-radius: 5px;
@@ -570,11 +661,32 @@
             <ul class="nav-links">
                 <li><a onclick="showHome()">Home</a></li>
                 <li><a onclick="scrollToModules()">Services</a></li>
-                <li><a onclick="scrollToStress()">Stress Help</a></li>
+                <li><a onclick="openModule('stress')">Stress Help</a></li>
                 <li><a onclick="scrollToDownload()">Download</a></li>
                 <li><a onclick="scrollToContact()">Contact</a></li>
             </ul>
             <div class="auth-buttons" id="authButtons">
+                <div class="language-selector">
+                    <button class="language-btn" onclick="toggleLanguageDropdown()">
+                        <span>🌐</span>
+                        <span id="currentLanguage">English</span>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option active" onclick="changeLanguage('en', 'English')">English</div>
+                        <div class="language-option" onclick="changeLanguage('hi', 'हिंदी')">हिंदी (Hindi)</div>
+                        <div class="language-option" onclick="changeLanguage('bn', 'বাংলা')">বাংলা (Bengali)</div>
+                        <div class="language-option" onclick="changeLanguage('te', 'తెలుగు')">తెలుగు (Telugu)</div>
+                        <div class="language-option" onclick="changeLanguage('mr', 'मराठी')">मराठी (Marathi)</div>
+                        <div class="language-option" onclick="changeLanguage('ta', 'தமிழ்')">தமிழ் (Tamil)</div>
+                        <div class="language-option" onclick="changeLanguage('gu', 'ગુજરાતી')">ગુજરાતી (Gujarati)</div>
+                        <div class="language-option" onclick="changeLanguage('kn', 'ಕನ್ನಡ')">ಕನ್ನಡ (Kannada)</div>
+                        <div class="language-option" onclick="changeLanguage('ml', 'മലയാളം')">മലയാളം (Malayalam)</div>
+                        <div class="language-option" onclick="changeLanguage('pa', 'ਪੰਜਾਬੀ')">ਪੰਜਾਬੀ (Punjabi)</div>
+                        <div class="language-option" onclick="changeLanguage('or', 'ଓଡ଼ିଆ')">ଓଡ଼ିଆ (Odia)</div>
+                        <div class="language-option" onclick="changeLanguage('as', 'অসমীয়া')">অসমীয়া (Assamese)</div>
+                        <div class="language-option" onclick="changeLanguage('ur', 'اردو')">اردو (Urdu)</div>
+                    </div>
+                </div>
                 <button class="login-btn" onclick="openAuthModal('login')">Login</button>
                 <button class="signup-btn" onclick="openAuthModal('signup')">Sign Up</button>
             </div>
@@ -594,14 +706,14 @@
             <h2>Our Support Modules</h2>
             <div class="module-grid">
                 <div class="module-card" onclick="openModule('voiceher')">
-                    <div class="module-icon">✍️</div>
-                    <h3>Kahani Se Karwai</h3>
-                    <p>A platform to share real stories, raise awareness, and inspire action for social change.</p>
+                    <div class="module-icon">🗣️</div>
+                    <h3>Voice Her</h3>
+                    <p>Women's voice, safety, and empowerment platform</p>
                 </div>
 
                 <div class="module-card" onclick="openModule('saheli')">
-                    <div class="module-icon">💬</div>
-                    <h3>Baat Space</h3>
+                    <div class="module-icon">🤝</div>
+                    <h3>Saheli Connect</h3>
                     <p>Community support and connection network</p>
                 </div>
 
@@ -612,8 +724,8 @@
                 </div>
 
                 <div class="module-card" onclick="openModule('addiction')">
-                    <div class="module-icon">🚭</div>
-                    <h3>Nasha Mukti</h3>
+                    <div class="module-icon">💚</div>
+                    <h3>Addiction Help</h3>
                     <p>Recovery and mental wellness support</p>
                 </div>
 
@@ -692,7 +804,7 @@
 
     <!-- VOICE HER MODULE -->
     <div id="voiceherPage" class="page-container hidden">
-        <h2 class="page-title">KAHANI SE KARWAI✍️</h2>
+        <h2 class="page-title">Voice Her - Menu</h2>
         <div class="menu-grid">
             <button class="menu-btn" onclick="openSubModule('report')">📝 Submit Anonymous Report</button>
             <button class="menu-btn" onclick="openSubModule('story')">📖 Share Your Story</button>
@@ -705,7 +817,7 @@
 
     <!-- SAHELI CONNECT MODULE -->
     <div id="saheliPage" class="page-container hidden">
-        <h2 class="page-title">BAAT SPACE💬</h2>
+        <h2 class="page-title">Saheli Connect - Forum</h2>
         <div style="max-width: 800px; margin: 2rem auto; padding: 0 2rem;">
             <div class="modal-content" style="margin-bottom: 2rem;">
                 <h3>Create New Post</h3>
@@ -725,26 +837,26 @@
 
     <!-- GRAMEEN SAATHI MODULE -->
     <div id="grameenPage" class="page-container hidden">
-        <h2 class="page-title">GRAMEEN SAATHI🌾</h2>
+        <h2 class="page-title">Grameen Saathi</h2>
         <div class="menu-grid">
-            <button class="menu-btn" onclick="alert('Government Schemes feature coming soon!')">🏛️ Government Schemes</button>
-            <button class="menu-btn" onclick="alert('Health Tips feature coming soon!')">🏥 Health Tips</button>
-            <button class="menu-btn" onclick="alert('Educational Resources feature coming soon!')">📚 Educational Resources</button>
-            <button class="menu-btn" onclick="alert('Digital Literacy feature coming soon!')">💻 Digital Literacy</button>
-            <button class="menu-btn" onclick="alert('Training Opportunities feature coming soon!')">🎓 Training Opportunities</button>
+            <button class="menu-btn" onclick="openSchemes()">🏛️ Government Schemes</button>
+            <button class="menu-btn" onclick="openHealthTips()">🏥 Health Tips</button>
+            <button class="menu-btn" onclick="openEducationalResources()">📚 Educational Resources</button>
+            <button class="menu-btn" onclick="openDigitalLiteracy()">💻 Digital Literacy</button>
+            <button class="menu-btn" onclick="openTrainingOpportunities()">🎓 Training Opportunities</button>
         </div>
         <button class="submit-btn back-btn" onclick="showHome()">Back to Home</button>
     </div>
 
     <!-- ADDICTION HELP MODULE -->
     <div id="addictionPage" class="page-container hidden">
-        <h2 class="page-title">NASHA MUKTI🚭</h2>
+        <h2 class="page-title">Addiction Help & Recovery</h2>
         <div class="menu-grid">
-            <button class="menu-btn" onclick="alert('Self-Assessment Tools coming soon!')">📊 Self-Assessment Tools</button>
-            <button class="menu-btn" onclick="alert('Coping Exercises coming soon!')">🧘 Therapy & Coping Exercises</button>
-            <button class="menu-btn" onclick="alert('Rehabilitation Support coming soon!')">🏥 Rehabilitation Support</button>
-            <button class="menu-btn" onclick="alert('Progress Tracker coming soon!')">📈 Progress Tracker</button>
-            <button class="menu-btn" onclick="alert('Support Groups coming soon!')">👥 Peer Support Groups</button>
+            <button class="menu-btn" onclick="window.open('https://forms.gle/q1xm7j6ZHX7E4UNQ9', '_blank')">💊 KITNA NASHA?</button>
+            <button class="menu-btn" onclick="window.open('https://forms.gle/5HWQSEL2RJ9GA1TA9', '_blank')">🔄 BADLAAV KI SHURUAAT</button>
+            <button class="menu-btn" onclick="window.open('https://forms.gle/hVarXgRczK39cRrx7', '_blank')">💭 MANN KI BAAT</button>
+            <button class="menu-btn" onclick="openProgressTracker()">📈 Progress Tracker</button>
+            <button class="menu-btn" onclick="openSupportGroups()">👥 Peer Support Groups</button>
         </div>
         <button class="submit-btn back-btn" onclick="showHome()">Back to Home</button>
     </div>
@@ -799,82 +911,695 @@
                         <button class="option-btn" onclick="showSuggestion('relationships')">
                             I'm having conflicts in my relationships
                         </button>
+                    <h3>Q. In the past month, how has your interest or enjoyment in activities changed?</h3>
+                    <div class="options">
+                        <button class="option-btn" onclick="showSuggestion('hobby_a')">
+                            I enjoy things like before; I still make time for hobbies and socializing
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('hobby_b')">
+                            I'm a little less interested but still join in sometimes
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('hobby_c')">
+                            I often avoid activities I used to like and feel boredom about them
+                        </button>
+                        <button class="option-btn" onclick="showSuggestion('hobby_d')">
+                            I've lost interest in almost everything and rarely do anything enjoyable
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <button class="submit-btn back-btn" onclick="showHome()">Back to Home</button>
-    </div>
+    </div> <!-- End of stressPage -->
+  </div> <!-- End of stress-container -->
+</div> <!-- End of main container div around line 937 -->
+<!-- Add this HTML before the closing </body> tag -->
+<!-- Chatbot Widget -->
+<div id="chatbotWidget" class="chatbot-widget">
+    <!-- Chat Button with Avatar -->
+    <button id="chatbotToggle" class="chatbot-toggle">
+        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=UdaanBot&backgroundColor=8B4513" alt="Chatbot" class="chatbot-avatar">
+    </button>
+    <div class="online-badge">Online</div>
 
-    <!-- AUTH MODAL -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('authModal')">&times;</button>
-            <div id="loginForm" class="hidden">
-                <h2>Welcome Back</h2>
-                <div id="loginMsg"></div>
-                <div class="form-group">
-                    <label>Email or Username</label>
-                    <input type="text" id="loginEmail">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="loginPassword">
-                        <span class="password-toggle" onclick="togglePassword('loginPassword', this)">👁️</span>
-                    </div>
-                </div>
-                <button class="submit-btn" onclick="handleLogin()">Login</button>
-                <p style="text-align: center; margin-top: 1.5rem;">Don't have an account? <a href="#" onclick="switchAuthForm('signup')">Sign Up</a></p>
+    <!-- Chat Window -->
+    <div id="chatbotWindow" class="chatbot-window hidden">
+        <!-- Header -->
+        <div class="chatbot-header">
+            <div>
+                <h3 style="margin: 0; font-size: 1.1rem;">UDAAN-X Assistant</h3>
+                <p style="margin: 0; font-size: 0.75rem; opacity: 0.9;">Ask me anything!</p>
             </div>
-            <div id="signupForm" class="hidden">
-                <h2>Create Account</h2>
-                <div id="signupMsg"></div>
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="signupName">
+            <button id="chatbotClose" class="chatbot-close-btn">✕</button>
+        </div>
+
+        <!-- Messages Container -->
+        <div id="chatbotMessages" class="chatbot-messages">
+            <div class="chatbot-message bot-message">
+                <div class="message-content">
+                    👋 Hello! I'm your UDAAN-X assistant. How can I help you today?
                 </div>
-                <div class="form-group">
-                    <label>Age</label>
-                    <input type="number" id="signupAge">
-                </div>
-                <div class="form-group">
-                    <label>Gender</label>
-                    <select id="signupGender">
-                        <option value="">Select</option>
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="signupEmail">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="signupPassword">
-                        <span class="password-toggle" onclick="togglePassword('signupPassword', this)">👁️</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" id="signupPhone">
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" id="signupAddress">
-                </div>
-                <div class="form-group">
-                    <label>Aadhaar Number</label>
-                    <input type="text" id="signupAadhaar">
-                </div>
-                <button class="submit-btn" onclick="handleSignup()">Sign Up</button>
-                <p style="text-align: center; margin-top: 1.5rem;">Already have an account? <a href="#" onclick="switchAuthForm('login')">Login</a></p>
             </div>
         </div>
+
+        <!-- Input Area -->
+        <div class="chatbot-input-area">
+            <input 
+                type="text" 
+                id="chatbotInput" 
+                class="chatbot-input" 
+                placeholder="Type your message..."
+                autocomplete="off"
+            />
+            <button id="chatbotSend" class="chatbot-send-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
     </div>
+</div>
+
+<style>
+/* Chatbot Styles */
+.chatbot-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.chatbot-toggle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #8B4513;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 0;
+    overflow: hidden;
+}
+
+.chatbot-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.online-badge {
+    position: absolute;
+    bottom: 75px;
+    right: 5px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.chatbot-window {
+    position: absolute;
+    bottom: 95px;
+    right: 0;
+    width: 380px;
+    height: 520px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.chatbot-window.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.chatbot-header {
+    background: linear-gradient(135deg, #8B4513, #654321);
+    color: white;
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.chatbot-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.chatbot-message {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-content {
+    max-width: 75%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    word-wrap: break-word;
+}
+
+.bot-message .message-content {
+    background: linear-gradient(135deg, #8B4513, #654321);
+    color: white;
+    border-bottom-left-radius: 4px;
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message .message-content {
+    background: #e3f2fd;
+    color: #333;
+    border-bottom-right-radius: 4px;
+}
+
+.chatbot-input-area {
+    display: flex;
+    padding: 1rem;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    gap: 0.5rem;
+}
+
+.chatbot-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    outline: none;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.chatbot-input:focus {
+    border-color: #8B4513;
+}
+
+.chatbot-send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8B4513, #654321);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.chatbot-send-btn:hover {
+    transform: scale(1.1);
+}
+
+.chatbot-send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #8B4513, #654321);
+    border-radius: 12px;
+    border-bottom-left-radius: 4px;
+    width: fit-content;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    animation: typing 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .chatbot-window {
+        width: calc(100vw - 40px);
+        height: 70vh;
+        bottom: 80px;
+    }
+}
+</style>
+
+<script>
+// Chatbot Functionality
+const chatbotToggle = document.getElementById('chatbotToggle');
+const chatbotWindow = document.getElementById('chatbotWindow');
+const chatbotClose = document.getElementById('chatbotClose');
+const chatbotInput = document.getElementById('chatbotInput');
+const chatbotSend = document.getElementById('chatbotSend');
+const chatbotMessages = document.getElementById('chatbotMessages');
+
+// Toggle chat window
+chatbotToggle.addEventListener('click', () => {
+    chatbotWindow.classList.toggle('hidden');
+    if (!chatbotWindow.classList.contains('hidden')) {
+        chatbotInput.focus();
+    }
+});
+
+chatbotClose.addEventListener('click', () => {
+    chatbotWindow.classList.add('hidden');
+});
+
+// Enhanced knowledge base with more responses
+const responses = {
+    // Greetings
+    greetings: [
+        "Hello! 👋 Welcome to UDAAN-X. I'm here to help you with mental health support, wellness services, and more. What would you like to know?",
+        "Hi there! 😊 Thanks for reaching out to UDAAN-X. How can I assist you today?",
+        "Namaste! 🙏 Welcome to UDAAN-X wellness platform. Feel free to ask me anything about our services."
+    ],
+
+    // Services and Features
+    services: [
+        "UDAAN-X offers comprehensive wellness services:\n\n💬 Voice Her - Women's safety & empowerment\n🤝 Saheli Connect - Community support forum\n🌾 Grameen Saathi - Rural outreach programs\n💊 Addiction Help - Recovery support\n🧘 Stress Management - Personalized coping strategies\n\nWhich service interests you?"
+    ],
+
+    voiceher: [
+        "Voice Her is our women's safety platform where you can:\n• Submit anonymous reports\n• Share your story safely\n• Track your case\n• Find help centers\n\nYour voice matters and we're here to support you. 💪"
+    ],
+
+    saheli: [
+        "Saheli Connect is our community forum where you can:\n• Share experiences anonymously\n• Connect with others going through similar challenges\n• Get peer support\n• Find understanding and empathy\n\nYou're not alone in this journey. 🤗"
+    ],
+
+    grameen: [
+        "Grameen Saathi provides:\n• Information about government schemes\n• Health tips in simple language\n• Educational resources\n• Digital literacy programs\n• Training opportunities\n\nBringing wellness support to rural communities! 🌾"
+    ],
+
+    addiction: [
+        "Our Addiction Help module offers:\n\n💊 KITNA NASHA? - Self-assessment tool\n🔄 BADLAAV KI SHURUAAT - Begin your recovery journey\n💭 MANN KI BAAT - Share your thoughts confidentially\n\nRecovery is possible, and we're here to support you every step. 💚"
+    ],
+
+    // Mental Health Support
+    stress: [
+        "I understand stress can be overwhelming. Here are some immediate tips:\n\n🧘 Take 5 deep breaths - in for 4 counts, out for 6\n🚶 Go for a short 10-minute walk\n💧 Drink water and stay hydrated\n📱 Call our helpline: 1452 235 1463\n\nYou can also try our Stress Management module for personalized strategies."
+    ],
+
+    anxiety: [
+        "Anxiety is really tough. Try the 5-4-3-2-1 grounding technique:\n\n👀 Name 5 things you can see\n🤚 4 things you can touch\n👂 3 things you can hear\n👃 2 things you can smell\n👅 1 thing you can taste\n\nThis helps anchor you to the present. Our helpline is available 24/7: 1452 235 1463"
+    ],
+
+    depression: [
+        "I'm sorry you're going through this. Depression is a real illness, and you deserve support.\n\n🆘 Immediate help: 1452 235 1463\n💚 National Helpline: 9152987821\n\nPlease consider speaking with a mental health professional. You don't have to face this alone. Treatment works, and things can get better."
+    ],
+
+    sad: [
+        "It's okay to feel sad. Your feelings are valid. Here are some gentle suggestions:\n\n💙 Reach out to someone you trust\n📝 Journal your thoughts\n🎵 Listen to music that comforts you\n☀️ Step outside for fresh air\n\nIf sadness persists for weeks, please talk to a counselor. We're here: 1452 235 1463"
+    ],
+
+    lonely: [
+        "Loneliness can be really painful. You're reaching out, and that's a brave first step. 💙\n\nConsider:\n• Joining our Saheli Connect forum\n• Calling our helpline: 1452 235 1463\n• Reconnecting with an old friend\n• Volunteering in your community\n\nYou matter, and connection is possible."
+    ],
+
+    suicide: [
+        "🚨 I'm very concerned about you. Please reach out for immediate help:\n\n📞 UDAAN-X Emergency: 1452 235 1463\n🆘 National Suicide Helpline: 9152987821\n🏥 AASRA: 91-9820466726\n\nYour life has value. Please talk to someone right now. Crisis support is available 24/7."
+    ],
+
+    // Practical Help
+    contact: [
+        "You can reach UDAAN-X at:\n\n📞 Phone: 1452 235 1463 (24/7)\n🐦 Twitter: @udaan-x\n📷 Instagram: @udaanx\n\n👥 Team:\n• Anand Verma\n• Mandeep\n\nWe're here to help anytime! 😊"
+    ],
+
+    download: [
+        "Our mobile app is coming soon! 📱🎉\n\nYou'll be able to:\n• Access all services on the go\n• Get instant notifications\n• Track your wellness journey\n• Connect with support 24/7\n\nAvailable on Android & iOS soon. Stay tuned!"
+    ],
+
+    emergency: [
+        "🚨 EMERGENCY CONTACTS:\n\n📞 UDAAN-X Helpline: 1452 235 1463\n🆘 National Helpline: 9152987821\n🏥 AASRA: 91-9820466726\n👮 Police: 100\n🚑 Ambulance: 102\n\nIf you or someone is in immediate danger, please call emergency services now!"
+    ],
+
+    help: [
+        "I'm here to help! You can ask me about:\n\n💬 Our services (Voice Her, Saheli Connect, etc.)\n🧠 Mental health support\n☎️ Contact information\n📱 Mobile app\n🆘 Emergency resources\n📝 How to get started\n\nWhat would you like to know?"
+    ],
+
+    about: [
+        "UDAAN-X is an Empowerment, Recovery & Wellness Platform created to support:\n\n👩 Women's safety and empowerment\n🏘️ Rural community wellness\n💚 Mental health and addiction recovery\n🧘 Stress management\n\nFounded by Anand Verma and Mandeep, we're dedicated to making mental health support accessible to all. Your journey to wellness starts here! 🌟"
+    ],
+
+    // Positive reinforcement
+    thanks: [
+        "You're very welcome! 😊 I'm here whenever you need support. Take care of yourself! 💙",
+        "Happy to help! Remember, you're not alone. We're here 24/7 at 1452 235 1463. 🤗",
+        "My pleasure! Don't hesitate to reach out anytime. Wishing you wellness and peace. 🌟"
+    ],
+
+    // Default fallback
+    default: [
+        "Thank you for your message. For personalized assistance, please:\n\n📞 Call us: 1452 235 1463 (24/7)\n💬 Explore our services on the website\n📧 Connect via Instagram: @udaanx\n\nOur team is ready to help you! What else can I assist with?"
+    ]
+};
+
+// Function to match user input to responses
+function getBotResponse(userMessage) {
+    const message = userMessage.toLowerCase().trim();
+
+    // Crisis keywords - highest priority
+    if (message.includes('suicide') || message.includes('kill myself') || message.includes('end my life') || 
+        message.includes('want to die') || message.includes('self harm') || message.includes('hurt myself')) {
+        return getRandomResponse('suicide');
+    }
+
+    // Greetings
+    if (message.match(/\b(hello|hi|hey|namaste|good morning|good afternoon|good evening)\b/)) {
+        return getRandomResponse('greetings');
+    }
+
+    // Services
+    if (message.includes('service') || message.includes('what do you offer') || message.includes('what can you do') || 
+        message.includes('modules') || message.includes('features')) {
+        return getRandomResponse('services');
+    }
+
+    if (message.includes('voice her') || message.includes('voiceher') || message.includes('women') || 
+        message.includes('safety') || message.includes('report')) {
+        return getRandomResponse('voiceher');
+    }
+
+    if (message.includes('saheli') || message.includes('community') || message.includes('forum') || 
+        message.includes('connect')) {
+        return getRandomResponse('saheli');
+    }
+
+    if (message.includes('grameen') || message.includes('rural') || message.includes('village') || 
+        message.includes('scheme')) {
+        return getRandomResponse('grameen');
+    }
+
+    if (message.includes('addiction') || message.includes('drug') || message.includes('alcohol') || 
+        message.includes('nasha') || message.includes('recovery')) {
+        return getRandomResponse('addiction');
+    }
+
+    // Mental health
+    if (message.includes('stress') || message.includes('stressed') || message.includes('overwhelm') || 
+        message.includes('pressure') || message.includes('tense')) {
+        return getRandomResponse('stress');
+    }
+
+    if (message.includes('anxiety') || message.includes('anxious') || message.includes('worried') || 
+        message.includes('panic') || message.includes('nervous')) {
+        return getRandomResponse('anxiety');
+    }
+
+    if (message.includes('depression') || message.includes('depressed') || message.includes('hopeless')) {
+        return getRandomResponse('depression');
+    }
+
+    if (message.includes('sad') || message.includes('down') || message.includes('upset') || 
+        message.includes('crying') || message.includes('tears')) {
+        return getRandomResponse('sad');
+    }
+
+    if (message.includes('lonely') || message.includes('alone') || message.includes('isolated') || 
+        message.includes('no friends')) {
+        return getRandomResponse('lonely');
+    }
+
+    // Practical queries
+    if (message.includes('contact') || message.includes('phone') || message.includes('email') || 
+        message.includes('reach') || message.includes('call')) {
+        return getRandomResponse('contact');
+    }
+
+    if (message.includes('download') || message.includes('app') || message.includes('mobile') || 
+        message.includes('android') || message.includes('ios')) {
+        return getRandomResponse('download');
+    }
+
+    if (message.includes('emergency') || message.includes('urgent') || message.includes('crisis') || 
+        message.includes('immediate help')) {
+        return getRandomResponse('emergency');
+    }
+
+    if (message.includes('help') || message.includes('support') || message.includes('assist')) {
+        return getRandomResponse('help');
+    }
+
+    if (message.includes('about') || message.includes('who are you') || message.includes('what is udaan') || 
+        message.includes('udaan-x')) {
+        return getRandomResponse('about');
+    }
+
+    if (message.includes('thank') || message.includes('thanks') || message.includes('appreciate')) {
+        return getRandomResponse('thanks');
+    }
+
+    // Default
+    return getRandomResponse('default');
+}
+
+// Get random response from array
+function getRandomResponse(category) {
+    const responseArray = responses[category];
+    return responseArray[Math.floor(Math.random() * responseArray.length)];
+}
+
+// Add message to chat
+function addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chatbot-message ${sender}-message`;
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    contentDiv.textContent = text;
+    
+    messageDiv.appendChild(contentDiv);
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Show typing indicator
+function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chatbot-message bot-message';
+    typingDiv.id = 'typingIndicator';
+    
+    const indicator = document.createElement('div');
+    indicator.className = 'typing-indicator';
+    indicator.innerHTML = `
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+    `;
+    
+    typingDiv.appendChild(indicator);
+    chatbotMessages.appendChild(typingDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Remove typing indicator
+function removeTypingIndicator() {
+    const typing = document.getElementById('typingIndicator');
+    if (typing) typing.remove();
+}
+
+// Handle sending messages
+function handleSendMessage() {
+    const message = chatbotInput.value.trim();
+    if (!message) return;
+    
+    addMessage(message, 'user');
+    chatbotInput.value = '';
+    chatbotSend.disabled = true;
+    
+    showTypingIndicator();
+    
+    // Simulate thinking time
+    setTimeout(() => {
+        removeTypingIndicator();
+        const botResponse = getBotResponse(message);
+        addMessage(botResponse, 'bot');
+        chatbotSend.disabled = false;
+        chatbotInput.focus();
+    }, 1000);
+}
+
+// Event Listeners
+chatbotSend.addEventListener('click', handleSendMessage);
+chatbotInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleSendMessage();
+});
+</script>
+
+<!-- Move footer here, outside stressPage -->
+<footer id="contactSection" class="footer">
+  <div>
+    <div class="footer-section">
+      <h3>UDAAN-X</h3>
+      <p>Empowerment, Recovery & Wellness Platform</p>
+      <p>Your journey to wellness starts here</p>
+    </div>
+  </div>
+  <div class="footer-section" style="text-align: right;">
+    <h3>Contact Us</h3>
+    <p>📞 1452 235 1463</p>
+    <p>📧  udaaanx@gmail.com</p>
+    <p>🌐 ~ ANAND VERMA</p>
+    <p>&nbsp;&nbsp;&nbsp;~ MANDEEP</p>
+  </div>
+  <p style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">&copy; 2025 UDAAN-X - All Rights Reserved</p>
+</footer>
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal('authModal')">&times;</button>
+        <div id="loginForm" class="hidden">
+            <h2>Welcome Back</h2>
+            <div id="loginMsg"></div>
+            <div class="form-group">
+                <label>Email or Username</label>
+                <input type="text" id="loginEmail">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="loginPassword">
+                    <span class="password-toggle" onclick="togglePassword('loginPassword', this)">ðŸ'ï¸</span>
+                </div>
+            </div>
+            <button class="submit-btn" onclick="handleLogin()">Login</button>
+            <p style="text-align: center; margin-top: 1.5rem;">Don't have an account? <a href="#" onclick="switchAuthForm('signup')">Sign Up</a></p>
+        </div>
+        <div id="signupForm" class="hidden">
+            <h2>Create Account</h2>
+            <div id="signupMsg"></div>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="signupName">
+            </div>
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="signupAge">
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <select id="signupGender">
+                    <option value="">Select</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="signupEmail">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="signupPassword">
+                    <span class="password-toggle" onclick="togglePassword('signupPassword', this)">ðŸ'ï¸</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" id="signupPhone">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" id="signupAddress">
+            </div>
+            <div class="form-group">
+                <label>Aadhaar Number</label>
+                <input type="text" id="signupAadhaar">
+            </div>
+            <button class="submit-btn" onclick="handleSignup()">Sign Up</button>
+            <p style="text-align: center; margin-top: 1.5rem;">Already have an account? <a href="#" onclick="switchAuthForm('login')">Login</a></p>
+        </div>
+    </div>
+</div>
 
     <!-- SUB MODULE MODAL -->
     <div id="subModuleModal" class="modal">
@@ -892,33 +1617,393 @@
             <p id="suggestionContent" style="line-height: 1.8; color: #666;"></p>
         </div>
     </div>
-
-    <footer id="contactSection">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>UDAAN-X</h3>
-                <p>Empowerment, Recovery & Wellness Platform</p>
-                <p>Your journey to wellness starts here</p>
-            </div>
-            <div class="footer-section" style="text-align: right;">
-                <h3>Contact Us</h3>
-                <p>📧 : udaaanx@gmail.com</p>
-                <p>👦🏻      ~ ANAND VERMA</p>
-                <p>&nbsp;&nbsp;&nbsp;~ MANDEEP MISHRA</p>
-            </div>
-        </div>
-        <p style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">&copy; 2025 UDAAN-X - All Rights Reserved</p>
-    </footer>
-
+    
     <script>
         const API_URL = 'http://localhost:3000/api';
-        let currentUser = null;
+let currentUser = null;
+let currentLang = 'en';
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem('udaanUser');
-            if (saved) {
-                currentUser = JSON.parse(saved);
-                updateAuthUI();
+// Translation dictionary for common UI elements
+const translations = {
+    en: {
+        home: 'Home',
+        services: 'Services',
+        stressHelp: 'Stress Help',
+        download: 'Download',
+        contact: 'Contact',
+        login: 'Login',
+        signUp: 'Sign Up',
+        logout: 'Logout',
+        welcome: 'Welcome',
+        title: 'UDAAN-X',
+        subtitle: 'Empowerment, Recovery & Wellness Platform',
+        description: 'Supporting women, rural communities, and individuals on their journey to mental wellness and recovery',
+        exploreModules: 'Explore Our Modules',
+        supportModules: 'Our Support Modules',
+        voiceHer: 'Voice Her',
+        voiceHerDesc: 'Women\'s voice, safety, and empowerment platform',
+        saheli: 'Saheli Connect',
+        saheliDesc: 'Community support and connection network',
+        grameen: 'Grameen Saathi',
+        grameenDesc: 'Rural outreach and awareness programs',
+        addiction: 'Addiction Help',
+        addictionDesc: 'Recovery and mental wellness support',
+        stress: 'Stress Management',
+        stressDesc: 'Personalized stress relief and coping strategies',
+        voiceHerMenu: 'Voice Her - Menu',
+        submitReport: 'Submit Anonymous Report',
+        shareStory: 'Share Your Story',
+        mySubmissions: 'My Submissions',
+        helpCenters: 'Help Centers',
+        trackCase: 'Track Case',
+        backToHome: 'Back to Home',
+        
+        // Saheli Connect
+        saheliTitle: 'Saheli Connect - Forum',
+        createPost: 'Create New Post',
+        postTitle: 'Post Title',
+        postContent: 'Share your thoughts...',
+        createPostBtn: 'Create Post',
+        
+        // Grameen Saathi
+        grameenTitle: 'Grameen Saathi',
+        govSchemes: 'Government Schemes',
+        healthTips: 'Health Tips',
+        eduResources: 'Educational Resources',
+        digitalLiteracy: 'Digital Literacy',
+        trainingOpp: 'Training Opportunities',
+        
+        // Addiction Help
+        addictionTitle: 'Addiction Help & Recovery',
+        selfAssessment: 'Self-Assessment Tools',
+        therapyExercises: 'Therapy & Coping Exercises',
+        rehabSupport: 'Rehabilitation Support',
+        progressTracker: 'Progress Tracker',
+        supportGroups: 'Peer Support Groups',
+        
+        // Stress Management
+        stressTitle: 'Stress Management System',
+        howFeeling: 'How are you feeling right now?',
+        feelLowTired: 'I feel very low and tired',
+        feelHopeless: 'I feel hopeless about the future',
+        feelStressed: 'I feel stressed and cannot focus',
+        feelIsolated: 'I feel like I don\'t want to talk to anyone',
+        feelAnxious: 'I feel constantly anxious or worried',
+        feelOverwhelmed: 'I feel overwhelmed by daily tasks',
+        feelAngry: 'I feel irritable or angry easily',
+        troubleSleeping: 'I\'m having trouble sleeping',
+        eatingChanged: 'My eating patterns have changed significantly',
+        feelWorthless: 'I feel like I\'m not good enough',
+        physicalSymptoms: 'I\'m experiencing physical symptoms (headaches, chest pain, etc.)',
+        intrusiveMemories: 'I\'m bothered by intrusive thoughts or memories',
+        noMotivation: 'I have no motivation to do anything',
+        relationshipConflicts: 'I\'m having conflicts in my relationships',
+        suggestion: 'Personalized Suggestion',
+        
+        // Form Labels
+        category: 'Category',
+        description: 'Description',
+        selectCategory: 'Select Category',
+        harassment: 'Harassment',
+        abuse: 'Abuse',
+        violence: 'Violence',
+        other: 'Other',
+        describeSituation: 'Describe your situation...',
+        submitBtn: 'Submit',
+        yourStory: 'Your Story',
+        shareExperience: 'Share your experience...',
+        caseId: 'Case ID',
+        enterCaseId: 'Enter Case ID (e.g., CASE000001)',
+        
+        // Messages
+        comingSoon: 'COMING SOON',
+        appUnderDev: 'Our mobile app is under development',
+        accessAnywhere: 'Get ready to access UDAAN-X support anytime, anywhere',
+        featureComingSoon: 'This feature is coming soon!'
+    
+    },
+    hi: {
+        home: 'मुख्य पृष्ठ',
+        services: 'सेवाएं',
+        stressHelp: 'तनाव सहायता',
+        download: 'डाउनलोड',
+        contact: 'संपर्क',
+        login: 'लॉगिन',
+        signUp: 'साइन अप',
+        logout: 'लॉगआउट',
+        welcome: 'स्वागत है',
+        title: 'उड़ान-X',
+        subtitle: 'सशक्तिकरण, पुनर्प्राप्ति और कल्याण मंच',
+        description: 'महिलाओं, ग्रामीण समुदायों और व्यक्तियों को मानसिक स्वास्थ्य और पुनर्प्राप्ति की यात्रा में सहायता',
+        exploreModules: 'हमारे मॉड्यूल देखें',
+        supportModules: 'हमारे सहायता मॉड्यूल',
+        voiceHer: 'वॉइस हर',
+        voiceHerDesc: 'महिलाओं की आवाज़, सुरक्षा और सशक्तिकरण मंच',
+        saheli: 'सहेली कनेक्ट',
+        saheliDesc: 'सामुदायिक सहायता और कनेक्शन नेटवर्क',
+        grameen: 'ग्रामीण साथी',
+        grameenDesc: 'ग्रामीण आउटरीच और जागरूकता कार्यक्रम',
+        addiction: 'व्यसन सहायता',
+        addictionDesc: 'पुनर्प्राप्ति और मानसिक स्वास्थ्य सहायता',
+        stress: 'तनाव प्रबंधन',
+        stressDesc: 'व्यक्तिगत तनाव राहत और मुकाबला रणनीतियाँ',
+        
+        // Voice Her Module
+        voiceHerMenu: 'वॉइस हर - मेनू',
+        submitReport: 'गुमनाम रिपोर्ट सबमिट करें',
+        shareStory: 'अपनी कहानी साझा करें',
+        mySubmissions: 'मेरी सबमिशन',
+        helpCenters: 'सहायता केंद्र',
+        trackCase: 'केस ट्रैक करें',
+        backToHome: 'होम पर वापस जाएं',
+        
+        // Saheli Connect
+        saheliTitle: 'सहेली कनेक्ट - फोरम',
+        createPost: 'नई पोस्ट बनाएं',
+        postTitle: 'पोस्ट शीर्षक',
+        postContent: 'अपने विचार साझा करें...',
+        createPostBtn: 'पोस्ट बनाएं',
+        
+        // Grameen Saathi
+        grameenTitle: 'ग्रामीण साथी',
+        govSchemes: 'सरकारी योजनाएं',
+        healthTips: 'स्वास्थ्य सुझाव',
+        eduResources: 'शैक्षिक संसाधन',
+        digitalLiteracy: 'डिजिटल साक्षरता',
+        trainingOpp: 'प्रशिक्षण के अवसर',
+        
+        // Addiction Help
+        addictionTitle: 'व्यसन सहायता और पुनर्प्राप्ति',
+        selfAssessment: 'स्व-मूल्यांकन उपकरण',
+        therapyExercises: 'थेरेपी और मुकाबला अभ्यास',
+        rehabSupport: 'पुनर्वास सहायता',
+        progressTracker: 'प्रगति ट्रैकर',
+        supportGroups: 'सहकर्मी सहायता समूह',
+        
+        // Stress Management
+        stressTitle: 'तनाव प्रबंधन प्रणाली',
+        howFeeling: 'आप अभी कैसा महसूस कर रहे हैं?',
+        feelLowTired: 'मैं बहुत कम और थका हुआ महसूस करता हूं',
+        feelHopeless: 'मुझे भविष्य के बारे में निराशा महसूस होती है',
+        feelStressed: 'मैं तनावग्रस्त हूं और ध्यान केंद्रित नहीं कर सकता',
+        feelIsolated: 'मुझे किसी से बात नहीं करने का मन करता',
+        feelAnxious: 'मुझे लगातार चिंता या परेशानी महसूस होती है',
+        feelOverwhelmed: 'मैं दैनिक कार्यों से अभिभूत महसूस करता हूं',
+        feelAngry: 'मुझे आसानी से चिड़चिड़ापन या गुस्सा आता है',
+        troubleSleeping: 'मुझे सोने में परेशानी हो रही है',
+        eatingChanged: 'मेरे खाने के पैटर्न में काफी बदलाव आया है',
+        feelWorthless: 'मुझे लगता है कि मैं पर्याप्त नहीं हूं',
+        physicalSymptoms: 'मुझे शारीरिक लक्षण हो रहे हैं (सिरदर्द, सीने में दर्द, आदि)',
+        intrusiveMemories: 'मुझे दखल देने वाले विचारों या यादों से परेशानी है',
+        noMotivation: 'मुझमें कुछ भी करने की प्रेरणा नहीं है',
+        relationshipConflicts: 'मेरे रिश्तों में संघर्ष हो रहा है',
+        suggestion: 'व्यक्तिगत सुझाव',
+        
+        // Form Labels
+        category: 'श्रेणी',
+        description: 'विवरण',
+        selectCategory: 'श्रेणी चुनें',
+        harassment: 'उत्पीड़न',
+        abuse: 'दुर्व्यवहार',
+        violence: 'हिंसा',
+        other: 'अन्य',
+        describeSituation: 'अपनी स्थिति का वर्णन करें...',
+        submitBtn: 'सबमिट करें',
+        yourStory: 'आपकी कहानी',
+        shareExperience: 'अपना अनुभव साझा करें...',
+        caseId: 'केस आईडी',
+        enterCaseId: 'केस आईडी दर्ज करें (जैसे CASE000001)',
+        
+        // Messages
+        comingSoon: 'जल्द आ रहा है',
+        appUnderDev: 'हमारा मोबाइल ऐप विकास में है',
+        accessAnywhere: 'कभी भी, कहीं भी UDAAN-X सहायता प्राप्त करने के लिए तैयार हो जाएं',
+        featureComingSoon: 'यह सुविधा जल्द आ रही है!'
+    
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('udaanUser');
+    if (saved) {
+        currentUser = JSON.parse(saved);
+        updateAuthUI();
+    }
+    
+    const savedLang = localStorage.getItem('selectedLanguage');
+    if (savedLang && savedLang !== 'en') {
+        const langName = localStorage.getItem('selectedLanguageName');
+        document.getElementById('currentLanguage').textContent = langName || 'English';
+        currentLang = savedLang;
+        applyTranslations(savedLang);
+    }
+});
+
+function applyTranslations(langCode) {
+    if (!translations[langCode]) {
+        console.log('Language not supported:', langCode);
+        return;
+    }
+    
+    const t = translations[langCode];
+    
+    // Update navigation
+    const navLinks = document.querySelectorAll('.nav-links a');
+    if (navLinks[0]) navLinks[0].textContent = t.home;
+    if (navLinks[1]) navLinks[1].textContent = t.services;
+    if (navLinks[2]) navLinks[2].textContent = t.stressHelp;
+    if (navLinks[3]) navLinks[3].textContent = t.download;
+    if (navLinks[4]) navLinks[4].textContent = t.contact;
+    
+    // Update hero section
+    const heroH1 = document.querySelector('.hero h1');
+    const heroPs = document.querySelectorAll('.hero p');
+    const ctaBtn = document.querySelector('.cta-button');
+    
+    if (heroH1) heroH1.textContent = t.title;
+    if (heroPs[0]) heroPs[0].textContent = t.subtitle;
+    if (heroPs[1]) heroPs[1].textContent = t.description;
+    if (ctaBtn) ctaBtn.textContent = t.exploreModules;
+    
+    // Update modules section
+    const modulesH2 = document.querySelector('.modules h2');
+    if (modulesH2) modulesH2.textContent = t.supportModules;
+    
+    const moduleCards = document.querySelectorAll('.module-card');
+    if (moduleCards[0]) {
+        moduleCards[0].querySelector('h3').textContent = t.voiceHer;
+        moduleCards[0].querySelector('p').textContent = t.voiceHerDesc;
+    }
+    if (moduleCards[1]) {
+        moduleCards[1].querySelector('h3').textContent = t.saheli;
+        moduleCards[1].querySelector('p').textContent = t.saheliDesc;
+    }
+    if (moduleCards[2]) {
+        moduleCards[2].querySelector('h3').textContent = t.grameen;
+        moduleCards[2].querySelector('p').textContent = t.grameenDesc;
+    }
+    if (moduleCards[3]) {
+        moduleCards[3].querySelector('h3').textContent = t.addiction;
+        moduleCards[3].querySelector('p').textContent = t.addictionDesc;
+    }
+    if (moduleCards[4]) {
+        moduleCards[4].querySelector('h3').textContent = t.stress;
+        moduleCards[4].querySelector('p').textContent = t.stressDesc;
+        // Update page titles
+    const pageTitle = document.querySelector('.page-title');
+    if (pageTitle) {
+        const titleText = pageTitle.textContent.trim();
+        if (titleText.includes('Voice Her')) pageTitle.textContent = t.voiceHerMenu;
+        if (titleText.includes('Saheli')) pageTitle.textContent = t.saheliTitle;
+        if (titleText.includes('Grameen')) pageTitle.textContent = t.grameenTitle;
+        if (titleText.includes('Addiction')) pageTitle.textContent = t.addictionTitle;
+        if (titleText.includes('Stress')) pageTitle.textContent = t.stressTitle;
+    }
+    
+    // Update buttons
+    const buttons = document.querySelectorAll('.menu-btn, .submit-btn, .action-btn, .back-btn');
+    buttons.forEach(btn => {
+        const text = btn.textContent.trim();
+        if (text.includes('Submit Anonymous Report')) btn.innerHTML = '📝 ' + t.submitReport;
+        if (text.includes('Share Your Story')) btn.innerHTML = '📖 ' + t.shareStory;
+        if (text.includes('My Submissions')) btn.innerHTML = '📋 ' + t.mySubmissions;
+        if (text.includes('Help Centers')) btn.innerHTML = '🏥 ' + t.helpCenters;
+        if (text.includes('Track Case')) btn.innerHTML = '🔍 ' + t.trackCase;
+        if (text.includes('Back to Home')) btn.textContent = t.backToHome;
+        if (text.includes('Government Schemes')) btn.innerHTML = '🏛️ ' + t.govSchemes;
+        if (text.includes('Health Tips')) btn.innerHTML = '🏥 ' + t.healthTips;
+        if (text.includes('Educational Resources')) btn.innerHTML = '📚 ' + t.eduResources;
+        if (text.includes('Digital Literacy')) btn.innerHTML = '💻 ' + t.digitalLiteracy;
+        if (text.includes('Training Opportunities')) btn.innerHTML = '🎓 ' + t.trainingOpp;
+        if (text.includes('Self-Assessment')) btn.innerHTML = '📊 ' + t.selfAssessment;
+        if (text.includes('Therapy')) btn.innerHTML = '🧘 ' + t.therapyExercises;
+        if (text.includes('Rehabilitation')) btn.innerHTML = '🏥 ' + t.rehabSupport;
+        if (text.includes('Progress Tracker')) btn.innerHTML = '📈 ' + t.progressTracker;
+        if (text.includes('Support Groups')) btn.innerHTML = '👥 ' + t.supportGroups;
+    });
+    
+    // Update stress management questions
+    const optionBtns = document.querySelectorAll('.option-btn');
+    optionBtns.forEach(btn => {
+        const text = btn.textContent.trim();
+        if (text.includes('very low and tired')) btn.textContent = t.feelLowTired;
+        if (text.includes('hopeless about the future')) btn.textContent = t.feelHopeless;
+        if (text.includes('stressed and cannot focus')) btn.textContent = t.feelStressed;
+        if (text.includes('don\'t want to talk')) btn.textContent = t.feelIsolated;
+        if (text.includes('constantly anxious')) btn.textContent = t.feelAnxious;
+        if (text.includes('overwhelmed by daily')) btn.textContent = t.feelOverwhelmed;
+        if (text.includes('irritable or angry')) btn.textContent = t.feelAngry;
+        if (text.includes('trouble sleeping')) btn.textContent = t.troubleSleeping;
+        if (text.includes('eating patterns')) btn.textContent = t.eatingChanged;
+        if (text.includes('not good enough')) btn.textContent = t.feelWorthless;
+        if (text.includes('physical symptoms')) btn.textContent = t.physicalSymptoms;
+        if (text.includes('intrusive thoughts')) btn.textContent = t.intrusiveMemories;
+        if (text.includes('no motivation')) btn.textContent = t.noMotivation;
+        if (text.includes('conflicts in my relationships')) btn.textContent = t.relationshipConflicts;
+    });
+    
+    // Update question headers
+    const questionHeaders = document.querySelectorAll('.question-box h3');
+    questionHeaders.forEach(h3 => {
+        if (h3.textContent.includes('How are you feeling')) {
+            h3.textContent = t.howFeeling;
+        }
+    });
+    
+    // Update coming soon section
+    const comingSoonH3 = document.querySelector('.coming-soon-box h3');
+    if (comingSoonH3 && comingSoonH3.textContent.includes('COMING SOON')) {
+        comingSoonH3.textContent = t.comingSoon;
+    }
+    
+    const comingSoonPs = document.querySelectorAll('.coming-soon-box p');
+    if (comingSoonPs[0] && comingSoonPs[0].textContent.includes('mobile app')) {
+        comingSoonPs[0].textContent = t.appUnderDev;
+    }
+    if (comingSoonPs[1] && comingSoonPs[1].textContent.includes('access UDAAN-X')) {
+        comingSoonPs[1].textContent = t.accessAnywhere;
+    }
+    }
+}
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function changeLanguage(langCode, langName) {
+    currentLang = langCode;
+    document.getElementById('currentLanguage').textContent = langName;
+    localStorage.setItem('selectedLanguage', langCode);
+    localStorage.setItem('selectedLanguageName', langName);
+    
+    const dropdown = document.getElementById('languageDropdown');
+    dropdown.classList.remove('show');
+    
+    document.querySelectorAll('.language-option').forEach(opt => opt.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    if (langCode === 'en') {
+        // Reset to English by reloading page
+        location.reload();
+        return;
+    }
+    
+    // For now, we support Hindi translation
+    if (langCode === 'hi') {
+        applyTranslations('hi');
+    } else {
+        alert('Full translation for ' + langName + ' is coming soon! Currently only Hindi is fully supported.');
+        applyTranslations(langCode);
+    }
+}
+    
+    
+        document.addEventListener('click', function(event) {
+            const languageSelector = document.querySelector('.language-selector');
+            const dropdown = document.getElementById('languageDropdown');
+            
+            if (languageSelector && !languageSelector.contains(event.target)) {
+                dropdown.classList.remove('show');
             }
         });
 
@@ -1015,21 +2100,145 @@
             modal.style.display = 'flex';
         }
 
-        function openAuthModal(type) {
-            const modal = document.getElementById('authModal');
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            
-            if (type === 'login') {
-                loginForm.classList.remove('hidden');
-                signupForm.classList.add('hidden');
-            } else {
-                loginForm.classList.add('hidden');
-                signupForm.classList.remove('hidden');
-            }
-            
-            modal.style.display = 'flex';
+        // Authentication Functions
+function openAuthModal(type) {
+    const modal = document.getElementById('authModal');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    
+    if (type === 'login') {
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+    } else {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+    }
+    
+    modal.style.display = 'flex';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+function switchAuthForm(type) {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    
+    if (type === 'login') {
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+    } else {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+    }
+}
+
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        icon.textContent = '👁️';
+    }
+}
+
+async function handleLogin() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    
+    if (!email || !password) {
+        showMsg('loginMsg', 'Username and password are required', true);
+        return;
+    }
+    
+    // For demo purposes, create a mock user if backend is not available
+    try {
+        const response = await fetch('http://localhost:3000/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            currentUser = data.user;
+            localStorage.setItem('udaanUser', JSON.stringify(currentUser));
+            showMsg('loginMsg', 'Login successful!');
+            setTimeout(() => {
+                updateAuthUI();
+                closeModal('authModal');
+            }, 1000);
+        } else {
+            showMsg('loginMsg', data.error || 'Invalid credentials', true);
         }
+    } catch (error) {
+        // Fallback: Create demo user if server is not running
+        console.log('Backend not available, using demo mode');
+        currentUser = {
+            name: email.split('@')[0] || email,
+            email: email
+        };
+        localStorage.setItem('udaanUser', JSON.stringify(currentUser));
+        showMsg('loginMsg', 'Login successful! (Demo mode - backend not connected)');
+        setTimeout(() => {
+            updateAuthUI();
+            closeModal('authModal');
+        }, 1500);
+    }
+}
+
+async function handleSignup() {
+    const data = {
+        name: document.getElementById('signupName').value,
+        age: document.getElementById('signupAge').value,
+        gender: document.getElementById('signupGender').value,
+        email: document.getElementById('signupEmail').value,
+        password: document.getElementById('signupPassword').value,
+        phone: document.getElementById('signupPhone').value,
+        address: document.getElementById('signupAddress').value,
+        aadhaar: document.getElementById('signupAadhaar').value
+    };
+    
+    if (!data.name || !data.age || !data.gender || !data.email || !data.password || !data.phone || !data.address || !data.aadhaar) {
+        showMsg('signupMsg', 'Please fill all fields', true);
+        return;
+    }
+    
+    try {
+        const response = await fetch('http://localhost:3000/api/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            showMsg('signupMsg', 'Signup successful! Please login.');
+            setTimeout(() => switchAuthForm('login'), 2000);
+        } else {
+            showMsg('signupMsg', result.error, true);
+        }
+    } catch (error) {
+        showMsg('signupMsg', 'Cannot connect to server', true);
+    }
+}
+
+function showMsg(id, msg, isError = false) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `<div class="message ${isError ? 'error' : 'success'}">${msg}</div>`;
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+}
 
         function switchAuthForm(type) {
             const loginForm = document.getElementById('loginForm');
@@ -1061,13 +2270,37 @@
 
         function updateAuthUI() {
             const authButtons = document.getElementById('authButtons');
+            const languageHTML = `
+                <div class="language-selector">
+                    <button class="language-btn" onclick="toggleLanguageDropdown()">
+                        <span>🌐</span>
+                        <span id="currentLanguage">${localStorage.getItem('selectedLanguageName') || 'English'}</span>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option ${currentLang === 'en' ? 'active' : ''}" onclick="changeLanguage('en', 'English')">English</div>
+                        <div class="language-option ${currentLang === 'hi' ? 'active' : ''}" onclick="changeLanguage('hi', 'हिंदी')">हिंदी (Hindi)</div>
+                        <div class="language-option ${currentLang === 'bn' ? 'active' : ''}" onclick="changeLanguage('bn', 'বাংলা')">বাংলা (Bengali)</div>
+                        <div class="language-option ${currentLang === 'te' ? 'active' : ''}" onclick="changeLanguage('te', 'తెలుగు')">తెలుగు (Telugu)</div>
+                        <div class="language-option ${currentLang === 'mr' ? 'active' : ''}" onclick="changeLanguage('mr', 'मराठी')">मराठी (Marathi)</div>
+                        <div class="language-option ${currentLang === 'ta' ? 'active' : ''}" onclick="changeLanguage('ta', 'தமிழ்')">தமிழ் (Tamil)</div>
+                        <div class="language-option ${currentLang === 'gu' ? 'active' : ''}" onclick="changeLanguage('gu', 'ગુજરાતી')">ગુજરાતી (Gujarati)</div>
+                        <div class="language-option ${currentLang === 'kn' ? 'active' : ''}" onclick="changeLanguage('kn', 'ಕನ್ನಡ')">ಕನ್ನಡ (Kannada)</div>
+                        <div class="language-option ${currentLang === 'ml' ? 'active' : ''}" onclick="changeLanguage('ml', 'മലയാളം')">മലയാളം (Malayalam)</div>
+                        <div class="language-option ${currentLang === 'pa' ? 'active' : ''}" onclick="changeLanguage('pa', 'ਪੰਜਾਬੀ')">ਪੰਜਾਬੀ (Punjabi)</div>
+                        <div class="language-option ${currentLang === 'or' ? 'active' : ''}" onclick="changeLanguage('or', 'ଓଡ଼ିଆ')">ଓଡ଼ିଆ (Odia)</div>
+                        <div class="language-option ${currentLang === 'as' ? 'active' : ''}" onclick="changeLanguage('as', 'অসমীয়া')">অসমীয়া (Assamese)</div>
+                        <div class="language-option ${currentLang === 'ur' ? 'active' : ''}" onclick="changeLanguage('ur', 'اردو')">اردو (Urdu)</div>
+                    </div>
+                </div>
+            `;
+            
             if (currentUser) {
-                authButtons.innerHTML = `
+                authButtons.innerHTML = languageHTML + `
                     <span style="color: #5d4e37; margin-right: 1rem;">Welcome, ${currentUser.name}</span>
                     <button class="login-btn" onclick="logout()">Logout</button>
                 `;
             } else {
-                authButtons.innerHTML = `
+                authButtons.innerHTML = languageHTML + `
                     <button class="login-btn" onclick="openAuthModal('login')">Login</button>
                     <button class="signup-btn" onclick="openAuthModal('signup')">Sign Up</button>
                 `;
@@ -1363,37 +2596,654 @@
                 console.error('Error liking post:', error);
             }
         }
+        function openHealthTips() {
+            const modal = document.getElementById('subModuleModal');
+            const content = document.getElementById('subModuleContent');
+            
+            content.innerHTML = `
+                <h2>Health Tips & Resources</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Access reliable health information, mental wellness tips, and medical support services.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="color: #5d4e37; margin-top: 1rem;">🧠 Mental Health Resources</h3>
+                    
+                    <a href="https://www.nimhans.ac.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏥 NIMHANS - National Mental Health Institute<br>
+                        <small style="opacity: 0.8;">Mental health services and information</small>
+                    </a>
+                    
+                    <a href="https://www.thelivelovelaughfoundation.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💚 Live Love Laugh Foundation<br>
+                        <small style="opacity: 0.8;">Mental health awareness & support</small>
+                    </a>
+                    
+                    <a href="https://www.who.int/health-topics/mental-health" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🌍 WHO Mental Health Resources<br>
+                        <small style="opacity: 0.8;">Global mental health guidelines</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🏥 General Health & Wellness</h3>
+                    
+                    <a href="https://www.mohfw.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏛️ Ministry of Health & Family Welfare<br>
+                        <small style="opacity: 0.8;">Official health policies and programs</small>
+                    </a>
+                    
+                    <a href="https://www.nhp.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📋 National Health Portal<br>
+                        <small style="opacity: 0.8;">Health information in multiple languages</small>
+                    </a>
+                    
+                    <a href="https://esanjeevani.mohfw.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💻 eSanjeevani - Telemedicine<br>
+                        <small style="opacity: 0.8;">Free online doctor consultation</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">👩 Women's Health</h3>
+                    
+                    <a href="https://nhm.gov.in/index1.php?lang=1&level=3&sublinkid=818&lid=221" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🤰 Maternal & Child Health Services<br>
+                        <small style="opacity: 0.8;">Pregnancy care and child health</small>
+                    </a>
+                    
+                    <a href="https://www.who.int/health-topics/maternal-health" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💗 Women's Health Information<br>
+                        <small style="opacity: 0.8;">Comprehensive women's health guide</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">☎️ Emergency Helplines</h3>
+                    
+                    <div class="menu-btn" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+                        🆘 <strong>Emergency Numbers</strong><br>
+                        <small style="opacity: 0.9;">
+                            • Ambulance: 102 / 108<br>
+                            • Mental Health Helpline: 08046110007<br>
+                            • National Helpline: 9152987821<br>
+                            • Women Helpline: 181
+                        </small>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1rem; background: #f5f3f0; border-radius: 8px; color: #666;">
+                    💡 <strong>Important:</strong> For medical emergencies, always call emergency services immediately. These resources are for information and support only.
+                </p>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function openEducationalResources() {
+            const modal = document.getElementById('subModuleModal');
+            const content = document.getElementById('subModuleContent');
+            
+            content.innerHTML = `
+                <h2>Educational Resources</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Access free educational platforms, courses, and learning materials for skill development.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="color: #5d4e37; margin-top: 1rem;">📚 Free Online Learning Platforms</h3>
+                    
+                    <a href="https://www.swayam.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🎓 SWAYAM - Free Online Courses<br>
+                        <small style="opacity: 0.8;">Government's online learning platform with certificates</small>
+                    </a>
+                    
+                    <a href="https://nptel.ac.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📖 NPTEL - Technical Education<br>
+                        <small style="opacity: 0.8;">Engineering, science & humanities courses</small>
+                    </a>
+                    
+                    <a href="https://diksha.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📱 DIKSHA - Digital Learning<br>
+                        <small style="opacity: 0.8;">School education content for all classes</small>
+                    </a>
+                    
+                    <a href="https://www.khanacademy.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🌟 Khan Academy<br>
+                        <small style="opacity: 0.8;">Free courses in math, science & more</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">💼 Skill Development & Vocational Training</h3>
+                    
+                    <a href="https://www.skillindiadigital.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🛠️ Skill India Digital<br>
+                        <small style="opacity: 0.8;">Free skill training & certification</small>
+                    </a>
+                    
+                    <a href="https://www.pmkvyofficial.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📜 Pradhan Mantri Kaushal Vikas Yojana<br>
+                        <small style="opacity: 0.8;">Vocational training & placement support</small>
+                    </a>
+                    
+                    <a href="https://nios.ac.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏫 NIOS - Open Schooling<br>
+                        <small style="opacity: 0.8;">Complete school education at your pace</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">👩‍💼 Women's Education & Empowerment</h3>
+                    
+                    <a href="https://wcd.nic.in/schemes/support-training-and-employment-programme-women-step" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💪 STEP - Women's Skill Training<br>
+                        <small style="opacity: 0.8;">Support for women in traditional sectors</small>
+                    </a>
+                    
+                    <a href="https://www.ncw.nic.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        ⚖️ National Commission for Women<br>
+                        <small style="opacity: 0.8;">Women's rights & education resources</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">📖 Language Learning</h3>
+                    
+                    <a href="https://www.duolingo.com/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🗣️ Duolingo - Learn Languages<br>
+                        <small style="opacity: 0.8;">Free language learning app</small>
+                    </a>
+                    
+                    <a href="https://spoken-tutorial.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💬 Spoken Tutorial - Indian Languages<br>
+                        <small style="opacity: 0.8;">Learn software in your language</small>
+                    </a>
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1rem; background: #f5f3f0; border-radius: 8px; color: #666;">
+                    💡 <strong>Tip:</strong> Most of these platforms offer free courses with certificates. Start with one course and build your skills gradually!
+                </p>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function openDigitalLiteracy() {
+            const modal = document.getElementById('subModuleModal');
+            const content = document.getElementById('subModuleContent');
+            
+            content.innerHTML = `
+                <h2>Digital Literacy Programs</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Learn basic to advanced digital skills, internet safety, and technology usage.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="color: #5d4e37; margin-top: 1rem;">💻 Government Digital Literacy Programs</h3>
+                    
+                    <a href="https://www.digitalindia.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🇮🇳 Digital India Initiative<br>
+                        <small style="opacity: 0.8;">Government's digital transformation program</small>
+                    </a>
+                    
+                    <a href="https://www.pmgdisha.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📱 PMGDISHA - Digital Literacy Mission<br>
+                        <small style="opacity: 0.8;">Free digital literacy training & certification</small>
+                    </a>
+                    
+                    <a href="https://csc.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏢 Common Service Centers<br>
+                        <small style="opacity: 0.8;">Digital services & training centers near you</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🎓 Learn Computer Skills</h3>
+                    
+                    <a href="https://www.gcfglobal.org/topics/computer-basics/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🖥️ Computer Basics for Beginners<br>
+                        <small style="opacity: 0.8;">Learn how to use computers from scratch</small>
+                    </a>
+                    
+                    <a href="https://learndigital.withgoogle.com/digitalunlocked" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🔓 Google Digital Unlocked<br>
+                        <small style="opacity: 0.8;">Free digital marketing & online skills</small>
+                    </a>
+                    
+                    <a href="https://www.microsoft.com/en-in/digital-literacy" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🪟 Microsoft Digital Literacy<br>
+                        <small style="opacity: 0.8;">Learn Microsoft Office & digital skills</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">📱 Mobile & Internet Usage</h3>
+                    
+                    <a href="https://www.youtube.com/user/GoogleIndiaOfficial" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📺 Google India - Learn Online<br>
+                        <small style="opacity: 0.8;">Video tutorials in Hindi & regional languages</small>
+                    </a>
+                    
+                    <a href="https://beinternetawesome.withgoogle.com/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🛡️ Internet Safety & Security<br>
+                        <small style="opacity: 0.8;">Stay safe online - cybersecurity basics</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🏦 Digital Payments & Banking</h3>
+                    
+                    <a href="https://www.rbi.org.in/financialeducation/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💳 RBI Financial Education<br>
+                        <small style="opacity: 0.8;">Learn digital banking & online payments</small>
+                    </a>
+                    
+                    <a href="https://www.npci.org.in/what-we-do/upi/upi-ecosystem" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💸 Learn UPI & Digital Payments<br>
+                        <small style="opacity: 0.8;">How to use Google Pay, PhonePe, Paytm safely</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🔐 Online Safety Tips</h3>
+                    
+                    <div class="menu-btn" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+                        ⚠️ <strong>Stay Safe Online</strong><br>
+                        <small style="opacity: 0.9;">
+                            • Never share OTP or passwords<br>
+                            • Verify sender before clicking links<br>
+                            • Use strong, unique passwords<br>
+                            • Enable two-factor authentication<br>
+                            • Report cybercrime: cybercrime.gov.in
+                        </small>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1rem; background: #f5f3f0; border-radius: 8px; color: #666;">
+                    💡 <strong>Remember:</strong> Digital literacy is essential in today's world. Start with basics and gradually build your confidence!
+                </p>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function openTrainingOpportunities() {
+            const modal = document.getElementById('subModuleModal');
+            const content = document.getElementById('subModuleContent');
+            
+            content.innerHTML = `
+                <h2>Training Opportunities</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Explore free and paid training programs, skill development courses, and employment opportunities.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="color: #5d4e37; margin-top: 1rem;">🎓 Government Skill Training Programs</h3>
+                    
+                    <a href="https://www.skillindiadigital.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🇮🇳 Skill India Mission<br>
+                        <small style="opacity: 0.8;">National skill development programs</small>
+                    </a>
+                    
+                    <a href="https://www.pmkvyofficial.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📜 PMKVY - Free Skill Training<br>
+                        <small style="opacity: 0.8;">Get trained & certified for free with placement support</small>
+                    </a>
+                    
+                    <a href="https://rural.nic.in/en/press-release/deen-dayal-upadhyaya-grameen-kaushalya-yojana-ddu-gky" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🌾 DDU-GKY - Rural Skill Training<br>
+                        <small style="opacity: 0.8;">Training for rural youth with 100% placement</small>
+                    </a>
+                    
+                    <a href="https://www.ncs.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💼 National Career Service Portal<br>
+                        <small style="opacity: 0.8;">Job search, training & career counseling</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">👩‍💼 Women-Focused Training Programs</h3>
+                    
+                    <a href="https://wcd.nic.in/schemes/support-training-and-employment-programme-women-step" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💪 STEP - Women's Employment Program<br>
+                        <small style="opacity: 0.8;">Training in traditional & non-traditional sectors</small>
+                    </a>
+                    
+                    <a href="https://nrlm.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        👭 Women's Livelihood Training<br>
+                        <small style="opacity: 0.8;">Self-employment & entrepreneurship training</small>
+                    </a>
+                    
+                    <a href="https://www.sidbi.in/en/stand-up-india-scheme" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🚀 Stand Up India - Women Entrepreneurs<br>
+                        <small style="opacity: 0.8;">Business loans for women & SC/ST entrepreneurs</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">💻 IT & Technology Training</h3>
+                    
+                    <a href="https://nasscomfutureskills.com/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🖥️ NASSCOM FutureSkills<br>
+                        <small style="opacity: 0.8;">Digital skills & IT certification programs</small>
+                    </a>
+                    
+                    <a href="https://www.microsoft.com/en-in/training-certifications" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🪟 Microsoft Training & Certification<br>
+                        <small style="opacity: 0.8;">IT professional certifications</small>
+                    </a>
+                    
+                    <a href="https://www.coursera.org/browse/computer-science" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📚 Coursera - Tech Courses<br>
+                        <small style="opacity: 0.8;">Free & paid courses from top universities</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🏭 Vocational & Trade Skills</h3>
+                    
+                    <a href="https://iti.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🔧 Industrial Training Institutes (ITI)<br>
+                        <small style="opacity: 0.8;">Technical & vocational training courses</small>
+                    </a>
+                    
+                    <a href="https://www.nimi.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🛠️ NIMI - Trade Courses<br>
+                        <small style="opacity: 0.8;">Apprenticeship & skill training</small>
+                    </a>
+                    
+                    <a href="https://www.pmkvy.in/TrainingPartner/SearchTP.aspx" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏢 Find Training Centers Near You<br>
+                        <small style="opacity: 0.8;">Locate PMKVY training centers in your area</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">💡 Entrepreneurship & Business Training</h3>
+                    
+                    <a href="https://www.mudra.org.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💰 MUDRA Yojana - Business Loans<br>
+                        <small style="opacity: 0.8;">Micro-financing for small businesses</small>
+                    </a>
+                    
+                    <a href="https://msme.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏪 MSME Support & Training<br>
+                        <small style="opacity: 0.8;">Start & grow your small business</small>
+                    </a>
+                    
+                    <a href="https://www.startupindia.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🚀 Startup India<br>
+                        <small style="opacity: 0.8;">Resources for new entrepreneurs</small>
+                    </a>
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1rem; background: #f5f3f0; border-radius: 8px; color: #666;">
+                    💡 <strong>Action Steps:</strong> 1) Choose a skill you're interested in 2) Enroll in free training 3) Complete certification 4) Apply for jobs or start your business!
+                </p>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function openSchemes() {
+            const modal = document.getElementById('subModuleModal');
+            const content = document.getElementById('subModuleContent');
+            
+            content.innerHTML = `
+                <h2>Government Schemes for Welfare & Empowerment</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Access various government schemes designed for women empowerment, rural development, mental health support, and social welfare.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="color: #5d4e37; margin-top: 1rem;">👩 Women Empowerment Schemes</h3>
+                    
+                    <a href="https://wcd.nic.in/beti-bachao-beti-padhao-scheme" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        👧 Beti Bachao Beti Padhao<br>
+                        <small style="opacity: 0.8;">Education & welfare for girl child</small>
+                    </a>
+                    
+                    <a href="https://www.indiacode.nic.in/handle/123456789/2155?sam_handle=123456789/1362" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        ⚖️ Protection of Women from Domestic Violence Act<br>
+                        <small style="opacity: 0.8;">Legal protection and support for women</small>
+                    </a>
+                    
+                    <a href="https://nari.nic.in/schemes/one-stop-centre-scheme" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🛡️ One Stop Centre Scheme (Sakhi)<br>
+                        <small style="opacity: 0.8;">Integrated support for women in distress</small>
+                    </a>
+                    
+                    <a href="https://wcd.nic.in/schemes/mahila-shakti-kendras-msk" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💪 Mahila Shakti Kendra<br>
+                        <small style="opacity: 0.8;">Women empowerment & skill development</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🌾 Rural Development Schemes</h3>
+                    
+                    <a href="https://pmay-g.nic.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏠 Pradhan Mantri Awas Yojana - Gramin<br>
+                        <small style="opacity: 0.8;">Housing for rural poor</small>
+                    </a>
+                    
+                    <a href="https://nrlm.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💼 National Rural Livelihood Mission (NRLM)<br>
+                        <small style="opacity: 0.8;">Employment & livelihood for rural families</small>
+                    </a>
+                    
+                    <a href="https://rural.nic.in/en/press-release/deen-dayal-upadhyaya-grameen-kaushalya-yojana-ddu-gky" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🎓 DDU Grameen Kaushalya Yojana<br>
+                        <small style="opacity: 0.8;">Skill training for rural youth</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🏥 Health & Wellness Schemes</h3>
+                    
+                    <a href="https://www.pmjay.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💚 Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana<br>
+                        <small style="opacity: 0.8;">Free health insurance up to ₹5 lakh</small>
+                    </a>
+                    
+                    <a href="https://nhm.gov.in/index1.php?lang=1&level=2&sublinkid=819&lid=221" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🤰 Pradhan Mantri Matru Vandana Yojana<br>
+                        <small style="opacity: 0.8;">Maternity benefit for pregnant & lactating women</small>
+                    </a>
+                    
+                    <a href="https://www.nhp.gov.in/national-mental-health-programme_pg" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🧠 National Mental Health Programme<br>
+                        <small style="opacity: 0.8;">Mental health services & awareness</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🛡️ Social Security & Support</h3>
+                    
+                    <a href="https://socialjustice.gov.in/schemes/19" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💰 Support to Training and Employment Programme<br>
+                        <small style="opacity: 0.8;">Rehabilitation support for addiction recovery</small>
+                    </a>
+                    
+                    <a href="https://www.indiacode.nic.in/handle/123456789/2079?sam_handle=123456789/1362" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        👨‍👩‍👧 Domestic Violence Helpline (181)<br>
+                        <small style="opacity: 0.8;">24/7 emergency helpline for women in distress</small>
+                    </a>
+                    
+                    <a href="https://www.digitalindia.gov.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📱 Digital India Programme<br>
+                        <small style="opacity: 0.8;">Digital literacy & empowerment</small>
+                    </a>
+                    
+                    <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1697858" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📚 National Education Policy 2020<br>
+                        <small style="opacity: 0.8;">Education & skill development initiatives</small>
+                    </a>
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1rem; background: #f5f3f0; border-radius: 8px; color: #666;">
+                    💡 <strong>Note:</strong> These schemes are regularly updated by the government. For eligibility criteria, application process, and latest information, please visit the official websites or contact your local government office.
+                </p>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+        function openProgressTracker() {
+            const modal = document.getElementById('subModuleModal');
+            const content = document.getElementById('subModuleContent');
+            
+            content.innerHTML = `
+                <h2>📈 Progress Tracker - Your Recovery Journey</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Track your progress, celebrate milestones, and stay motivated on your path to recovery.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="color: #5d4e37; margin-top: 1rem;">🎯 Recovery Tracking Tools</h3>
+                    
+                    <a href="https://www.recoveryrecord.com/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📱 Recovery Record App<br>
+                        <small style="opacity: 0.8;">Track meals, moods, and recovery goals</small>
+                    </a>
+                    
+                    <a href="https://www.sobertime.com/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        ⏰ Sober Time Counter<br>
+                        <small style="opacity: 0.8;">Count days sober and track milestones</small>
+                    </a>
+                    
+                    <a href="https://www.intherooms.com/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🌐 In The Rooms - Recovery Tracker<br>
+                        <small style="opacity: 0.8;">Online recovery community with tracking tools</small>
+                    </a>
+                    
+                    <a href="https://www.recoveryelevator.com/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🎧 Recovery Elevator<br>
+                        <small style="opacity: 0.8;">Podcast & community for alcohol-free living</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">📊 Self-Monitoring Resources</h3>
+                    
+                    <a href="https://www.smartrecovery.org/smart-recovery-toolbox/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🧰 SMART Recovery Toolbox<br>
+                        <small style="opacity: 0.8;">Tools for managing cravings and tracking progress</small>
+                    </a>
+                    
+                    <a href="https://www.verywellmind.com/addiction-recovery-4157285" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📚 Recovery Education & Tips<br>
+                        <small style="opacity: 0.8;">Evidence-based recovery information</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">✅ Daily Check-In & Journaling</h3>
+                    
+                    <div class="menu-btn" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+                        📝 <strong>Create Your Own Progress Journal</strong><br>
+                        <small style="opacity: 0.9;">
+                            Track daily:<br>
+                            • Days clean/sober<br>
+                            • Triggers you overcame<br>
+                            • Positive changes you notice<br>
+                            • Goals for tomorrow<br>
+                            • Gratitude list
+                        </small>
+                    </div>
+                    
+                    <a href="https://www.recoveryanswers.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🔍 Recovery Research & Resources<br>
+                        <small style="opacity: 0.8;">Science-based recovery information</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🏆 Celebrate Your Milestones</h3>
+                    
+                    <div class="menu-btn" style="background: #d4edda; border-left: 4px solid #28a745;">
+                        🎉 <strong>Recovery Milestones to Celebrate</strong><br>
+                        <small style="opacity: 0.9;">
+                            • 24 hours clean<br>
+                            • 1 week sober<br>
+                            • 30 days milestone<br>
+                            • 90 days (3 months)<br>
+                            • 6 months<br>
+                            • 1 year anniversary<br>
+                            <br>
+                            Every day counts! Be proud of your progress. 💪
+                        </small>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1rem; background: #f5f3f0; border-radius: 8px; color: #666;">
+                    💡 <strong>Remember:</strong> Recovery is not linear. Celebrate small wins, learn from setbacks, and keep moving forward. You're doing great! 💚
+                </p>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function openSupportGroups() {
+            const modal = document.getElementById('subModuleModal');
+            const content = document.getElementById('subModuleContent');
+            
+            content.innerHTML = `
+                <h2>👥 Peer Support Groups</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Connect with others who understand your journey. You're not alone in recovery.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="color: #5d4e37; margin-top: 1rem;">🌍 International Support Groups</h3>
+                    
+                    <a href="https://www.aa.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🍺 Alcoholics Anonymous (AA)<br>
+                        <small style="opacity: 0.8;">World's largest support group for alcohol addiction</small>
+                    </a>
+                    
+                    <a href="https://www.na.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💊 Narcotics Anonymous (NA)<br>
+                        <small style="opacity: 0.8;">Support for drug addiction recovery</small>
+                    </a>
+                    
+                    <a href="https://www.smartrecovery.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🧠 SMART Recovery<br>
+                        <small style="opacity: 0.8;">Science-based addiction recovery support</small>
+                    </a>
+                    
+                    <a href="https://al-anon.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        👨‍👩‍👧 Al-Anon Family Groups<br>
+                        <small style="opacity: 0.8;">Support for families & friends of alcoholics</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🇮🇳 India-Specific Support Groups</h3>
+                    
+                    <a href="https://www.alcoholicsanonymous.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏛️ AA India - Find Local Meetings<br>
+                        <small style="opacity: 0.8;">AA meetings across India</small>
+                    </a>
+                    
+                    <a href="https://naindia.in/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🇮🇳 Narcotics Anonymous India<br>
+                        <small style="opacity: 0.8;">NA meetings in Indian cities</small>
+                    </a>
+                    
+                    <div class="menu-btn" style="background: #e8f4f8; border-left: 4px solid #17a2b8;">
+                        📞 <strong>India Helplines</strong><br>
+                        <small style="opacity: 0.9;">
+                            • National Drug Helpline: 1800-11-0031<br>
+                            • NIMHANS Helpline: 080-46110007<br>
+                            • T.T. Ranganathan Clinical Research Foundation: 044-24640369
+                        </small>
+                    </div>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">💻 Online Support Communities</h3>
+                    
+                    <a href="https://www.intherooms.com/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🌐 In The Rooms<br>
+                        <small style="opacity: 0.8;">Free 24/7 online recovery meetings</small>
+                    </a>
+                    
+                    <a href="https://www.reddit.com/r/stopdrinking/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        💬 r/stopdrinking (Reddit)<br>
+                        <small style="opacity: 0.8;">Supportive community for quitting alcohol</small>
+                    </a>
+                    
+                    <a href="https://www.reddit.com/r/REDDITORSINRECOVERY/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🤝 Redditors in Recovery<br>
+                        <small style="opacity: 0.8;">General addiction recovery community</small>
+                    </a>
+                    
+                    <a href="https://www.recoveryanswers.org/recovery-101/recovery-support/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        📖 Recovery Support Resources<br>
+                        <small style="opacity: 0.8;">Comprehensive guide to finding support</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">🏥 Professional Support Centers</h3>
+                    
+                    <a href="https://nimhans.ac.in/centre-for-addiction-medicine/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏥 NIMHANS Addiction Medicine Centre<br>
+                        <small style="opacity: 0.8;">Bangalore - Expert addiction treatment</small>
+                    </a>
+                    
+                    <a href="https://www.ttranganathan.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏥 T.T. Ranganathan Centre, Chennai<br>
+                        <small style="opacity: 0.8;">Rehabilitation & counseling services</small>
+                    </a>
+                    
+                    <a href="https://www.ashaadhaar.org/" target="_blank" class="menu-btn" style="text-decoration: none;">
+                        🏥 Ashaadhaar Foundation, Mumbai<br>
+                        <small style="opacity: 0.8;">De-addiction & rehabilitation</small>
+                    </a>
+                    
+                    <h3 style="color: #5d4e37; margin-top: 1.5rem;">📱 Support Apps & Hotlines</h3>
+                    
+                    <div class="menu-btn" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+                        🆘 <strong>Immediate Help Available</strong><br>
+                        <small style="opacity: 0.9;">
+                            • UDAAN-X Helpline: 1452 235 1463<br>
+                            • Mental Health Helpline: 9152987821<br>
+                            • Available 24/7 for crisis support
+                        </small>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1rem; background: #f5f3f0; border-radius: 8px; color: #666;">
+                    💚 <strong>You are not alone:</strong> Millions of people are in recovery. Support groups provide understanding, hope, and proven strategies. Take the first step today!
+                </p>
+            `;
+            
+            modal.style.display = 'flex';
+        }
 
         function showSuggestion(type) {
-            const suggestions = {
-                low: "Try deep breathing exercises: Breathe in for 4 counts, hold for 4, breathe out for 4. Take a short 10-minute walk outdoors if possible. Movement helps release endorphins. Remember: This feeling is temporary. Consider reaching out to a friend or family member.",
-                
-                hopeless: "Write down one small, achievable goal for today - even something as simple as making your bed or drinking water. Achieving small goals builds momentum. You are stronger than you think. Consider journaling three things you're grateful for. If these feelings persist, please speak with a mental health professional.",
-                
-                stressed: "Practice a 5-minute guided meditation. Close your eyes and focus only on your breathing. Let go of thoughts about past or future - be present in this moment. Try progressive muscle relaxation: tense and release each muscle group. Break large tasks into smaller, manageable steps.",
-                
-                isolated: "Isolation can worsen stress and depression. Try texting just one trusted person - you don't have to explain everything, just say 'hi'. Sometimes connection starts with a small step. Your feelings are valid, and you deserve support. Consider joining an online support community.",
-                
-                anxious: "Practice the 5-4-3-2-1 grounding technique: Name 5 things you see, 4 things you can touch, 3 things you hear, 2 things you smell, and 1 thing you taste. This helps anchor you to the present moment. Deep breathing helps: Breathe in slowly for 4 counts, hold for 4, exhale for 6. Challenge anxious thoughts by asking yourself: 'Is this thought based on facts or feelings?' Remember, anxiety is uncomfortable but not dangerous.",
-                
-                overwhelmed: "When everything feels too much, try the 'brain dump' method: Write down everything on your mind without organizing it. Then, prioritize only the top 3 tasks for today. Everything else can wait. Break each task into tiny steps. Remember: You don't have to do everything at once. It's okay to ask for help or say no to additional commitments.",
-                
-                angry: "Anger is often a secondary emotion masking hurt, fear, or frustration. Try the 'STOP' technique: Stop what you're doing. Take a breath. Observe what you're feeling. Proceed mindfully. Physical exercise can help release anger safely - try a brisk walk, dancing, or hitting a pillow. Express your feelings through journaling. Count to 10 before responding. Remember: It's okay to feel angry, but how you express it matters.",
-                
-                sleeping: "Establish a calming bedtime routine: No screens 1 hour before bed. Try reading, gentle stretching, or listening to calming music. Keep your bedroom cool and dark. Avoid caffeine after 2 PM. If your mind races, keep a notepad by your bed to write down thoughts. Try the '4-7-8' breathing: Breathe in for 4, hold for 7, exhale for 8. If sleep problems persist for more than 2 weeks, consult a doctor.",
-                
-                eating: "Changes in eating patterns can signal emotional distress. Try to maintain regular meal times even if you don't feel hungry. Eat with awareness - notice colors, textures, and flavors. Avoid using food as a coping mechanism for emotions. Stay hydrated. If you're eating too little, try small, nutrient-dense snacks. If you're overeating, pause before eating and ask: 'Am I physically hungry or emotionally hungry?' Consider speaking with a counselor if eating patterns feel out of control.",
-                
-                worthless: "These feelings are symptoms, not facts. Write down 3 things you did well today, no matter how small. Remember: Your worth is not determined by productivity or achievements. You matter simply because you exist. Challenge negative self-talk: Would you say this to a friend? Probably not. Be as kind to yourself as you would be to someone you care about. Reach out to someone who makes you feel valued. If feelings of worthlessness persist, please seek professional help.",
-                
-                physical: "Physical symptoms like headaches, chest pain, stomach issues, or muscle tension can be your body's way of expressing emotional stress. Try progressive muscle relaxation: Tense each muscle group for 5 seconds, then release. Stay hydrated and maintain regular meals. Gentle exercise can help. However, if you're experiencing chest pain, difficulty breathing, or severe symptoms, seek immediate medical attention. Don't ignore your body's signals - they're real, even if stress is the cause.",
-                
-                memories: "Intrusive thoughts or flashbacks can be distressing. The '5 senses grounding' technique can help: Focus intensely on what you see, hear, touch, smell, and taste right now. This brings you back to the present. Remember: Thoughts are not facts or predictions. You can observe a thought without engaging with it. Imagine putting the thought on a cloud and watching it float away. If intrusive thoughts are related to trauma, please consider speaking with a trauma-informed therapist. You don't have to carry this burden alone.",
-                
-                motivation: "Lack of motivation is a common sign of burnout or depression. Start with the smallest possible step - just 5 minutes of an activity. Often, starting is the hardest part. Don't wait to 'feel like it' - action often comes before motivation. Celebrate tiny wins. Remove barriers: Lay out your workout clothes, prep ingredients for a meal, put your book on your pillow. Be gentle with yourself - rest is productive too. If this persists for weeks, consider speaking with a mental health professional.",
-                
-                relationships: "Relationship conflicts are stressful but also opportunities for growth. Try the 'I feel... when... because...' formula to express feelings without blame. Listen to understand, not to respond. Take breaks if discussions get heated. Remember: Both people's feelings are valid. Consider what you need versus what you want. Are your boundaries clear? Sometimes conflicts arise from unspoken expectations. If patterns repeat, couples or family therapy can help. It's a sign of strength, not weakness."
-            };
             
             const content = suggestions[type] || "Please consider speaking with a mental health professional who can provide personalized support for your situation.";
             document.getElementById('suggestionContent').innerHTML = content;
@@ -1406,5 +3256,6 @@
             }
         }
     </script>
+    
 </body>
 </html>
